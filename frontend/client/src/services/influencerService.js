@@ -1,6 +1,6 @@
 // File: frontend/client/src/services/influencerService.js
 
-const API_URL = 'http://localhost:5000/api/influencers/';
+const API_URL = 'https://metainflu.onrender.com/api/influencers/';
 
 /**
  * Creates a new influencer profile.
