@@ -1,129 +1,230 @@
 <template>
-  <div class="font-sans bg-gray-50 text-gray-800">
+  <div class="min-h-screen font-sans bg-white text-gray-900">
     <!-- Navbar -->
     <Navbar />
 
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 opacity-90"></div>
-      <div class="relative container mx-auto px-6 sm:px-12 lg:px-20 py-24 flex flex-col lg:flex-row items-center justify-between text-white">
-        <!-- Hero Text -->
-        <div class="flex-1 space-y-6 text-center lg:text-left">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-            The Future of <span class="text-yellow-300">Influencer Marketing</span>
-          </h1>
-          <p class="text-lg max-w-xl mx-auto lg:mx-0 text-gray-200">
-            Streamline campaigns, discover influencers, and analyze performance — all in one powerful platform.
-          </p>
-          <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
-            <button class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-yellow-300 transition">
-              Start Free Trial
-            </button>
-            <button class="bg-white/20 border border-white/40 text-white px-6 py-3 rounded-full hover:bg-white/30 transition">
-              Watch Demo →
-            </button>
+    <!-- Hero -->
+    <header class="pt-28 pb-16 bg-gradient-to-b from-white to-gray-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+              Smarter <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Forecasting</span> for a <br class="hidden sm:inline" /> Profitable Future
+            </h1>
+            <p class="text-gray-600 max-w-xl">
+              Souraksh delivers simple, reliable demand forecasting and revenue &amp; profit estimation —
+              so your team can plan with confidence and act with speed.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mt-4">
+              <router-link
+                to="/register"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-shadow shadow-sm"
+              >
+                Get Started
+              </router-link>
+
+              <router-link
+                to="/services"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 transition"
+              >
+                Learn More
+              </router-link>
+            </div>
+
+            <div class="mt-6 flex items-center gap-6 text-sm text-gray-500">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center">📈</div>
+                <div>
+                  <div class="font-semibold text-gray-900">95%</div>
+                  <div class="text-xs">Forecast Accuracy</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center">⚡</div>
+                <div>
+                  <div class="font-semibold text-gray-900">Faster Decisions</div>
+                  <div class="text-xs">Reduce planning time by up to 70%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="mx-auto max-w-md lg:max-w-lg bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <div class="text-xs text-gray-500">ForecastX</div>
+                  <div class="font-semibold">Monthly Demand Overview</div>
+                </div>
+                <div class="text-sm text-gray-500">Oct 2025</div>
+              </div>
+
+              <div class="h-44 rounded-lg bg-gradient-to-tr from-indigo-50 to-white flex items-end p-4">
+                <!-- minimal placeholder chart bars -->
+                <div class="w-full flex items-end gap-2">
+                  <div class="flex-1 h-16 rounded-md bg-indigo-600/80"></div>
+                  <div class="flex-1 h-10 rounded-md bg-indigo-400/80"></div>
+                  <div class="flex-1 h-20 rounded-md bg-indigo-600/60"></div>
+                  <div class="flex-1 h-8 rounded-md bg-indigo-300/80"></div>
+                  <div class="flex-1 h-24 rounded-md bg-indigo-700/80"></div>
+                </div>
+              </div>
+
+              <div class="mt-4 text-sm text-gray-600">Projected demand increases during seasonal peak. Inventory suggestions available.</div>
+            </div>
+
+            <div class="hidden lg:block absolute -right-10 -bottom-10 w-64 h-64 rounded-3xl bg-gradient-to-tr from-indigo-100 to-purple-50 transform rotate-12 blur-xl opacity-60"></div>
           </div>
         </div>
+      </div>
+    </header>
 
-        <!-- Hero Image -->
-        <div class="flex-1 mt-12 lg:mt-0 flex justify-center">
-          <img
-            src="https://placehold.co/550x400/eeeeee/cccccc?text=Dashboard+Preview"
-            class="w-full max-w-lg rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-500"
-          />
+    <!-- Services -->
+    <section class="py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-10">Our Services</h2>
+        <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8">Data-driven forecasting and financial insights tailored to your business.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="service-card">
+            <div class="icon">📊</div>
+            <h3 class="font-semibold text-lg">Demand Forecasting</h3>
+            <p class="text-gray-600 text-sm">Predict product demand accurately to optimize inventory and operations.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">💵</div>
+            <h3 class="font-semibold text-lg">Revenue Estimation</h3>
+            <p class="text-gray-600 text-sm">Forecast revenue trends and inform strategic planning.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">📈</div>
+            <h3 class="font-semibold text-lg">Profitability Analysis</h3>
+            <p class="text-gray-600 text-sm">Analyze costs and margins to maximize profitability.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Social Proof -->
-    <section class="py-12 bg-white border-b border-gray-200 text-center">
-      <h3 class="text-gray-500 uppercase tracking-wider text-sm mb-6">Trusted by leading brands</h3>
-      <div class="flex flex-wrap justify-center gap-8 opacity-70">
-        <img src="https://placehold.co/100x40?text=Dentsu" class="h-10 hover:opacity-100 transition" />
-        <img src="https://placehold.co/100x40?text=Samsung" class="h-10 hover:opacity-100 transition" />
-        <img src="https://placehold.co/100x40?text=WPP" class="h-10 hover:opacity-100 transition" />
-        <img src="https://placehold.co/100x40?text=Kellogg's" class="h-10 hover:opacity-100 transition" />
-        <img src="https://placehold.co/100x40?text=OMG" class="h-10 hover:opacity-100 transition" />
-      </div>
-    </section>
+    <!-- Products -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-3xl font-bold">Products</h2>
+          <router-link to="/products" class="text-sm text-indigo-600 font-semibold">View all products →</router-link>
+        </div>
 
-    <!-- Features Section -->
-    <section class="container mx-auto px-6 sm:px-12 lg:px-20 py-20">
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-12">
-        Everything you need for powerful campaigns
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-semibold mb-2">AI-Powered Discovery</h4>
-          <p class="text-gray-600 text-sm">Find top influencers with AI-driven recommendations tailored to your niche.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-semibold mb-2">Automated Workflows</h4>
-          <p class="text-gray-600 text-sm">Save hours with smart campaign automation and built-in tools.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-semibold mb-2">Analytics Dashboard</h4>
-          <p class="text-gray-600 text-sm">Track ROI, engagement, and reach with easy-to-read dashboards.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-semibold mb-2">Collaboration Tools</h4>
-          <p class="text-gray-600 text-sm">Bring brands, creators, and teams together seamlessly.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-semibold mb-2">Real-Time Insights</h4>
-          <p class="text-gray-600 text-sm">Make data-backed decisions with live campaign performance metrics.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-semibold mb-2">Secure & Scalable</h4>
-          <p class="text-gray-600 text-sm">Enterprise-grade security with scalable infrastructure for any size campaign.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div class="text-sm text-gray-500 mb-2">ForecastX</div>
+            <div class="font-semibold mb-2">AI demand engine</div>
+            <p class="text-gray-600 text-sm">Accurate demand predictions for retail and supply chain.</p>
+          </div>
+
+          <div class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div class="text-sm text-gray-500 mb-2">RevenueVision</div>
+            <div class="font-semibold mb-2">Revenue & trend forecasting</div>
+            <p class="text-gray-600 text-sm">Predict revenue patterns and optimize growth strategies.</p>
+          </div>
+
+          <div class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div class="text-sm text-gray-500 mb-2">ProfitTrack</div>
+            <div class="font-semibold mb-2">Profit estimation toolkit</div>
+            <p class="text-gray-600 text-sm">Track and estimate profitability with actionable insights.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="bg-purple-50 py-20">
-      <h3 class="text-2xl font-bold text-center mb-12">What Our Clients Say</h3>
-      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center">
-          <p class="italic text-gray-700 mb-4">"Buzzify transformed our influencer campaigns — our ROI doubled in 3 months!"</p>
-          <img src="https://placehold.co/80x80?text=Avatar" class="w-16 h-16 rounded-full mb-2" />
-          <p class="font-semibold">Alfredo de Paz</p>
-          <p class="text-sm text-gray-500">Head of Social Media, IPG</p>
-        </div>
-        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center text-center">
-          <p class="italic text-gray-700 mb-4">"Their automation tools saved us hours every week and improved collaboration."</p>
-          <img src="https://placehold.co/80x80?text=Avatar" class="w-16 h-16 rounded-full mb-2" />
-          <p class="font-semibold">Sarah Kim</p>
-          <p class="text-sm text-gray-500">Marketing Lead, Dentsu</p>
+    <!-- Impact / Stats -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="text-2xl font-bold mb-6">Our Impact</h2>
+        <p class="text-gray-600 mb-8">Tangible results from forecasting and financial planning.</p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="stat-card">
+            <div class="stat-value">95%</div>
+            <div class="text-xs text-gray-500">Forecast Accuracy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">70%</div>
+            <div class="text-xs text-gray-500">Faster Decisions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">500+</div>
+            <div class="text-xs text-gray-500">Clients Served</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">40%</div>
+            <div class="text-xs text-gray-500">Cost Optimization</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="container mx-auto px-6 sm:px-12 lg:px-20 py-20">
-      <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-3xl shadow-xl p-12 text-center">
-        <h3 class="text-3xl font-bold mb-4">Start Your Free Trial Today</h3>
-        <p class="max-w-2xl mx-auto text-white/80 mb-6">
-          Join 10,000+ marketers using Buzzify to launch successful influencer campaigns.
-        </p>
-        <button class="bg-white text-purple-700 px-8 py-3 rounded-full font-bold shadow-md hover:shadow-lg transition">
-          Get Started →
-        </button>
+    <!-- CTA -->
+    <section class="py-16 bg-indigo-700 text-white">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h3 class="text-2xl font-semibold mb-3">Ready to plan with confidence?</h3>
+        <p class="mb-6 text-indigo-100 max-w-2xl mx-auto">Book a demo and we’ll show how Souraksh can transform your planning and profitability.</p>
+        <router-link to="/demo" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-indigo-700 font-semibold">Book a Demo</router-link>
       </div>
     </section>
-
+<Footer />
     <!-- Footer -->
-    <footer class="py-8 text-center text-sm text-gray-500 border-t border-gray-200">
-      &copy; 2024 MetaBerry. All rights reserved.
-    </footer>
+  
   </div>
 </template>
 
-<script>
+<script setup>
 import Navbar from '../components/Navbar.vue';
-
-export default {
-  name: "Home",
-  components: { Navbar },
-};
+import Footer from '../components/Footer.vue';
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+:root{
+  --accent-1: #5b21b6; /* indigo-600 */
+  --accent-2: #7c3aed; /* purple-600 */
+}
+
+*{box-sizing:border-box}
+
+.font-sans{font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+
+.text-gradient{
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.service-card{
+  background:white;
+  padding:18px;
+  border-radius:14px;
+  border:1px solid #f1f5f9;
+  box-shadow:0 1px 4px rgba(16,24,40,0.03);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.service-card .icon{width:46px;height:46px;border-radius:10px;background:#f8fafc;display:flex;align-items:center;justify-content:center;font-size:20px}
+
+.stat-card{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  border:1px solid #f1f5f9;
+}
+.stat-value{font-weight:700;font-size:22px;color:var(--accent-1)}
+
+/* responsive tweaks */
+@media (min-width:1024px){
+  header{padding-top:4rem}
+}
+</style>

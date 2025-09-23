@@ -3,7 +3,7 @@
 // This file handles all API calls related to user authentication
 
 // The base URL of your backend API
-const API_URL = 'https://metainflu.onrender.com/api/auth/';
+const API_URL = 'https://3czzqk3l-5000.use2.devtunnels.ms/api/auth/';
 
 /**
  * Registers a new user by sending a POST request to the backend.
@@ -59,9 +59,11 @@ const login = async (userData) => {
     }
 
     const data = await response.json();
-    // Save user data to localStorage
+    // Save user data and admin status to localStorage
     if (data.token) {
-      localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data)); // This might be 'jwtToken' for berrymart
+      // For berrymart-ecommerce: Check the 'role' and set 'isAdmin' accordingly
+      localStorage.setItem('isAdmin', data.role === 'admin');
     }
 
     return data;

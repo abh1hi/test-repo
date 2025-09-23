@@ -16,12 +16,49 @@ import InfluencerProfile from '../pages/InfluencerProfile.vue';
 import Landing from '../pages/Landing.vue';
 import ServicePage from '../pages/ServicePage.vue';
 import ServiceLanding from '../pages/ServiceLanding.vue';
+import About from '../pages/about.vue';
+import Contact from '../pages/Contact.vue';
+import Testimonial from '../pages/Testimonial.vue';
+import Pricing from '../pages/Pricing.vue';
+import Dashboard from '../pages/Dashboard.vue';
+// Import the new Forecast Dashboard page
+import ForecastDashboard from '../pages/ForecastDashboard.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/forecast-dashboard',
+    name: 'ForecastDashboard',
+    component: ForecastDashboard,
+  },
+  {
+    path: '/pricing',
+    name: 'Pricing',
+    component: Pricing,
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+  },
+  {
+    path: '/testimonials',
+    name: 'Testimonial',
+    component: Testimonial,
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact,
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: About,
   },
     { path: '/services', 
       name: 'ServicePage',
