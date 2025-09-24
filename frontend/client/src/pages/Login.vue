@@ -76,6 +76,24 @@
             Sign In
           </button>
         </form>
+
+        <!-- Divider -->
+        <div class="my-6 flex items-center">
+          <div class="flex-grow border-t border-gray-300"></div>
+          <span class="mx-4 text-sm font-medium text-gray-500">Or continue with</span>
+          <div class="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        <!-- Google Sign In -->
+        <div>
+          <button
+            @click="handleGoogleLogin"
+            class="w-full flex items-center justify-center px-4 py-3 rounded-xl font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-200 transition-all duration-300 transform hover:scale-[1.02]"
+          >
+            <img class="h-6 w-6 mr-3" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google icon">
+            Sign In with Google
+          </button>
+        </div>
       </div>
 
       <!-- Right Section (Image/Illustration) -->
@@ -117,6 +135,11 @@ export default {
       } catch (error) {
         console.error('Login failed:', error.message);
       }
+    },
+    handleGoogleLogin() {
+      
+      // Placeholder for Google login logic
+      console.log('Attempting Google login');
     },
   },
 };

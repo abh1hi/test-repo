@@ -1,4 +1,5 @@
 // File: backend/middleware/authMiddleware.js
+// This file handles authentication middleware. The admin-specific middleware has been removed.
 
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
@@ -34,14 +35,6 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-// Middleware to check if the user has an 'admin' role
-const admin = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
-    next();
-  } else {
-    res.status(403);
-    throw new Error('Not authorized as an admin');
-  }
-};
+// The 'admin' middleware function has been removed as it is no longer needed.
 
-module.exports = { protect, admin };
+module.exports = { protect };
