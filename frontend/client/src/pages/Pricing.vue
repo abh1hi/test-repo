@@ -95,16 +95,14 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-10 bg-white border-t">
-      <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-500">
-        © 2025 Souraksh · Demand Forecasting • Revenue Estimation • Profitability Analysis
-      </div>
-    </footer>
+  <Footer />
+
   </div>
 </template>
 
 <script setup>
 import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 </script>
 
 <style scoped>

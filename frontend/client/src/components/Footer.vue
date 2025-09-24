@@ -20,6 +20,8 @@
           <li><router-link to="/contact" class="hover:text-white transition">Contact</router-link></li>
           <li><router-link to="/pricing" class="hover:text-white transition">Pricing</router-link></li>
           <li><router-link to="/testimonials" class="hover:text-white transition">Testimonials</router-link></li>
+          <li><router-link to="/profile" class="hover:text-white transition">Profile</router-link></li>
+
         </ul>
       </div>
 

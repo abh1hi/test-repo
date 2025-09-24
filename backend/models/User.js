@@ -1,4 +1,3 @@
-
 // File: backend/models/User.js
 const mongoose = require('mongoose');
 const userSchema = mongoose.Schema(
@@ -14,18 +13,23 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Please add a password'],
+      // Password is not required for Google Sign-In users
+      required: function() { return !this.googleId; },
+    },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true, // Allows multiple documents to have a null value for this field
     },
     role: {
       type: String,
-      required: [true, 'Please specify a role'],
-      enum: ['client', 'influencer', 'admin'],
+      required: true,
+      enum: ['client'],
       default: 'client',
     },
     accountType: {
       type: String,
       enum: ['b2b', 'c2c'],
-      // The accountType is only required if the user's role is 'client'
       required: function() {
         return this.role === 'client';
       },
@@ -36,3 +40,4 @@ const userSchema = mongoose.Schema(
   }
 );
 module.exports = mongoose.model('User', userSchema);
+

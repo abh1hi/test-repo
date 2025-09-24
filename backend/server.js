@@ -4,11 +4,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+// Import only the required routes
 const authRoutes = require('./routes/authRoutes');
-const influencerRoutes = require('./routes/influencerRoutes');
-const campaignRoutes = require('./routes/campaignRoutes');
-const paymentRoutes = require('./routes/paymentRoutes');
-// adminRoutes import has been removed.
 
 const { errorHandler } = require('./middleware/errorMiddleware');
 const { protect } = require('./middleware/authMiddleware');
@@ -34,12 +31,11 @@ mongoose.connect(mongoURI, {
   process.exit(1);
 });
 
-// Routes
+// --- Routes ---
+// Using only the authentication routes for the streamlined application.
+// Other routes like influencers, campaigns, and payments have been removed.
 app.use('/api/auth', authRoutes);
-app.use('/api/influencers', influencerRoutes);
-app.use('/api/campaigns', campaignRoutes);
-app.use('/api/payments', paymentRoutes);
-// The /api/admin route has been removed.
+
 
 // Test protected route
 app.get('/api/protected', protect, (req, res) => {
@@ -58,3 +54,4 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
 });
+

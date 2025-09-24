@@ -1,207 +1,192 @@
 <!-- File: frontend/client/src/pages/Register.vue -->
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 flex items-center justify-center px-6">
-    <div class="flex flex-col md:flex-row w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden">
-      
-      <!-- Left Section -->
-      <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
-        <h2 class="text-4xl font-extrabold text-gray-900 mb-3">Create an account</h2>
-        <p class="text-gray-500 mb-8">Sign up today and enjoy a 30-day free trial 🎉</p>
+  <div class="min-h-screen bg-gray-50 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <div class="text-center">
+        <router-link to="/" class="text-3xl font-extrabold text-indigo-600 tracking-tight">
+          Souraksh
+        </router-link>
+        <h2 class="mt-4 text-2xl font-bold text-gray-900">
+          Create your account
+        </h2>
+        <p class="mt-2 text-sm text-gray-600">
+          Get started with your 30-day free trial.
+        </p>
+      </div>
 
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
         <form class="space-y-6" @submit.prevent="handleRegister">
-          <!-- Full Name -->
           <div>
+            <label for="full-name" class="sr-only">Full Name</label>
             <input
               id="full-name"
               v-model="name"
               type="text"
               placeholder="Full Name"
-              class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 sm:text-sm"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 sm:text-sm"
               required
             />
           </div>
 
-          <!-- Email -->
           <div>
+            <label for="email-address" class="sr-only">Email address</label>
             <input
               id="email-address"
               v-model="email"
               type="email"
               placeholder="Email Address"
-              class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 sm:text-sm"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 sm:text-sm"
               required
             />
           </div>
 
-          <!-- Password -->
           <div>
+            <label for="password" class="sr-only">Password</label>
             <input
               id="password"
               v-model="password"
               type="password"
               placeholder="Password"
-              class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 sm:text-sm"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 sm:text-sm"
               required
             />
           </div>
 
-          <!-- Role Toggle -->
-          <div>
-            <p class="text-sm font-medium text-gray-700 mb-2">I am a...</p>
-            <div class="flex space-x-3">
-              <button
-                type="button"
-                @click="role = 'client'"
-                :class="[
-                  'px-4 py-2 rounded-full border text-sm font-medium',
-                  role === 'client'
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
-                ]"
-              >
-                Client
-              </button>
-              <button
-                type="button"
-                @click="role = 'influencer'"
-                :class="[
-                  'px-4 py-2 rounded-full border text-sm font-medium',
-                  role === 'influencer'
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
-                ]"
-              >
-                Influencer
-              </button>
-            </div>
-          </div>
-
-          <!-- Account Type Toggle (if client) -->
-          <div v-if="role === 'client'">
-            <p class="text-sm font-medium text-gray-700 mb-2">My account is...</p>
-            <div class="flex space-x-3">
-              <button
-                type="button"
-                @click="accountType = 'b2b'"
-                :class="[
-                  'px-4 py-2 rounded-full border text-sm font-medium',
-                  accountType === 'b2b'
-                    ? 'bg-green-600 text-white border-green-600'
-                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
-                ]"
-              >
-                Business
-              </button>
-              <button
-                type="button"
-                @click="accountType = 'c2c'"
-                :class="[
-                  'px-4 py-2 rounded-full border text-sm font-medium',
-                  accountType === 'c2c'
-                    ? 'bg-green-600 text-white border-green-600'
-                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
-                ]"
-              >
-                Personal
-              </button>
-            </div>
-          </div>
-
-          <!-- Error Message -->
           <div v-if="errorMessage" class="text-red-600 text-sm">
             {{ errorMessage }}
           </div>
 
-          <!-- Submit -->
           <div>
             <button
               type="submit"
               :disabled="loading"
-              class="w-full py-3 px-4 rounded-xl text-white text-sm font-semibold shadow-md transition 
-                     bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 
-                     focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-70"
+              class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-70"
             >
-              <span v-if="loading">Registering...</span>
-              <span v-else>Sign Up</span>
+              <span v-if="loading">Creating Account...</span>
+              <span v-else>Create Account</span>
             </button>
           </div>
         </form>
 
-        <!-- Already Have an Account -->
-        <div class="mt-6 text-center">
-          <p class="text-sm text-gray-600">
-            Already have an account?
-            <router-link to="/login" class="font-medium text-blue-600 hover:text-blue-500">
-              Sign in
-            </router-link>
-          </p>
+        <div class="my-6 flex items-center">
+          <div class="flex-grow border-t border-gray-200"></div>
+          <span class="mx-4 text-xs font-medium text-gray-500 uppercase">Or</span>
+          <div class="flex-grow border-t border-gray-200"></div>
         </div>
+        
+        <div id="google-signin-button-container-register" class="flex justify-center"></div>
+
       </div>
 
-      <!-- Right Section -->
-      <div class="hidden md:flex md:w-1/2 bg-gradient-to-br from-blue-100 to-purple-100 items-center justify-center p-10">
-        <img
-          src="https://illustrations.popsy.co/gray/businesswoman.svg"
-          alt="Register Illustration"
-          class="w-4/5 max-h-[400px] object-contain"
-        />
-      </div>
+      <p class="text-center text-sm text-gray-600">
+        Already have an account?
+        <router-link to="/login" class="font-medium text-indigo-600 hover:text-indigo-500">
+          Sign in
+        </router-link>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import authService from '../services/authService';
 import { globalState } from '../main.js';
 
 export default {
   name: 'Register',
-  data() {
-    return {
-      name: '',
-      email: '',
-      password: '',
-      role: 'client',
-      accountType: 'b2b',
-      loading: false,
-      errorMessage: '',
-    };
-  },
-  methods: {
-    async handleRegister() {
-      this.loading = true;
-      this.errorMessage = '';
+  setup() {
+    const router = useRouter();
+    const name = ref('');
+    const email = ref('');
+    const password = ref('');
+    const loading = ref(false);
+    const errorMessage = ref('');
 
+    const handleRegister = async () => {
+      loading.value = true;
+      errorMessage.value = '';
       try {
         const userData = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          role: this.role,
+          name: name.value,
+          email: email.value,
+          password: password.value,
         };
-
-        if (this.role === 'client') {
-          userData.accountType = this.accountType;
-        }
-
         const response = await authService.register(userData);
-
         globalState.isLoggedIn = true;
         globalState.user = response;
+        router.push('/forecast-dashboard');
+      } catch (error) {
+        errorMessage.value = error.message || 'Registration failed. Please try again.';
+      } finally {
+        loading.value = false;
+      }
+    };
 
-        if (response.role === 'influencer') {
-          this.$router.push('/onboarding');
-        } else if (response.accountType === 'b2b') {
-          this.$router.push('/b2b-onboarding');
+    const handleGoogleLogin = async (googleResponse) => {
+        try {
+            const response = await authService.loginWithGoogle(googleResponse.credential);
+            globalState.isLoggedIn = true;
+            globalState.user = response;
+            router.push('/forecast-dashboard');
+        } catch(error) {
+            errorMessage.value = error.message || 'Google Sign-Up failed. Please try again.';
+            console.error("Google login failed:", error);
+        }
+    };
+
+    const loadGoogleScript = () => {
+      if (document.getElementById('google-identity-script')) {
+        if (typeof google !== 'undefined') {
+          initializeGoogleSignIn();
+        }
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.id = 'google-identity-script';
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      script.onload = initializeGoogleSignIn;
+      document.head.appendChild(script);
+    };
+
+    const initializeGoogleSignIn = () => {
+      try {
+        if (typeof google !== 'undefined') {
+            google.accounts.id.initialize({
+                client_id: document.querySelector('meta[name="google-signin-client_id"]').content,
+                callback: handleGoogleLogin,
+            });
+            google.accounts.id.renderButton(
+                document.getElementById('google-signin-button-container-register'),
+                { theme: 'outline', size: 'large', type: 'standard', text: 'signup_with', width: '300' }
+            );
         } else {
-          this.$router.push('/c2c-onboarding');
+             console.error("Google object not found after script load.");
+             errorMessage.value = "Could not initialize Google Sign-In. Please try again.";
         }
       } catch (error) {
-        this.errorMessage = error.response?.data?.message || error.message || 'Registration failed';
-      } finally {
-        this.loading = false;
+        console.error("Error initializing Google Sign-In:", error);
+        errorMessage.value = "An error occurred with Google Sign-In.";
       }
-    },
+    };
+
+    onMounted(() => {
+        loadGoogleScript();
+    });
+
+    return {
+      name,
+      email,
+      password,
+      loading,
+      errorMessage,
+      handleRegister,
+    };
   },
 };
 </script>
+

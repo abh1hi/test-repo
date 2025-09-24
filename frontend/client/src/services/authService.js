@@ -3,11 +3,11 @@
 // This file handles all API calls related to user authentication
 
 // The base URL of your backend API
-const API_URL = 'https://3czzqk3l-5000.use2.devtunnels.ms/api/auth/';
+const API_URL = 'http://localhost:5000/api/auth/';
 
 /**
  * Registers a new user by sending a POST request to the backend.
- * @param {object} userData - The user's registration data (name, email, password, role).
+ * @param {object} userData - The user's registration data (name, email, password).
  * @returns {Promise<object>} - A promise that resolves with the user data upon successful registration.
  */
 const register = async (userData) => {
@@ -26,7 +26,6 @@ const register = async (userData) => {
     }
 
     const data = await response.json();
-    // Save user data to localStorage
     if (data.token) {
       localStorage.setItem('user', JSON.stringify(data));
     }
@@ -59,11 +58,8 @@ const login = async (userData) => {
     }
 
     const data = await response.json();
-    // Save user data and admin status to localStorage
     if (data.token) {
-      localStorage.setItem('user', JSON.stringify(data)); // This might be 'jwtToken' for berrymart
-      // For berrymart-ecommerce: Check the 'role' and set 'isAdmin' accordingly
-      localStorage.setItem('isAdmin', data.role === 'admin');
+      localStorage.setItem('user', JSON.stringify(data));
     }
 
     return data;
@@ -73,7 +69,41 @@ const login = async (userData) => {
   }
 };
 
+/**
+ * Authenticates a user with a Google ID token.
+ * @param {string} token - The Google ID token.
+ * @returns {Promise<object>} - A promise that resolves with the user data.
+ */
+const loginWithGoogle = async (token) => {
+  try {
+    const response = await fetch(API_URL + 'google', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Google login failed');
+    }
+    
+    const data = await response.json();
+    if (data.token) {
+      localStorage.setItem('user', JSON.stringify(data));
+    }
+    
+    return data;
+  } catch (error) {
+    console.error('Google login failed:', error);
+    throw error;
+  }
+};
+
+
 export default {
   register,
   login,
+  loginWithGoogle,
 };

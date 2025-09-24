@@ -1,22 +1,22 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden">
-      
-      <!-- Left Section (Form) -->
-      <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
-        <h2 class="text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">
-          Welcome Back 👋
+  <div class="min-h-screen bg-gray-50 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <div class="text-center">
+        <router-link to="/" class="text-3xl font-extrabold text-indigo-600 tracking-tight">
+          Souraksh
+        </router-link>
+        <h2 class="mt-4 text-2xl font-bold text-gray-900">
+          Welcome Back
         </h2>
-        <p class="text-gray-600 mb-8 text-sm">
-          Sign in to access your account or
-          <router-link to="/register" class="text-blue-600 hover:text-blue-500 font-medium">
-            create a new one
-          </router-link>
+        <p class="mt-2 text-sm text-gray-600">
+          Sign in to continue to your dashboard.
         </p>
+      </div>
 
-        <!-- Login Form -->
-        <form class="space-y-5" @submit.prevent="handleLogin">
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+        <form class="space-y-6" @submit.prevent="handleLogin">
           <div>
+            <label for="email-address" class="sr-only">Email address</label>
             <input
               id="email-address"
               name="email"
@@ -25,10 +25,11 @@
               required
               v-model="email"
               placeholder="Email address"
-              class="w-full px-4 py-3 rounded-xl border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
             />
           </div>
           <div>
+            <label for="password" class="sr-only">Password</label>
             <input
               id="password"
               name="password"
@@ -37,110 +38,139 @@
               required
               v-model="password"
               placeholder="Password"
-              class="w-full px-4 py-3 rounded-xl border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
             />
           </div>
 
-          <!-- Remember + Forgot -->
           <div class="flex items-center justify-between text-sm">
-            <label class="flex items-center space-x-2">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <span class="text-gray-700">Remember me</span>
-            </label>
-            <a href="#" class="text-blue-600 hover:text-blue-500 font-medium">Forgot password?</a>
+            <div class="flex items-center">
+              <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
+              <label for="remember-me" class="ml-2 block text-gray-900">Remember me</label>
+            </div>
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot password?</a>
           </div>
 
-          <!-- Submit -->
-          <button
-            type="submit"
-            class="w-full flex items-center justify-center px-4 py-3 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 transform hover:scale-[1.02]"
-          >
-            <svg
-              class="h-5 w-5 text-white mr-2"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
+          <div>
+            <button
+              type="submit"
+              class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform transform hover:scale-[1.02]"
             >
-              <path
-                fill-rule="evenodd"
-                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            Sign In
-          </button>
+              Sign In
+            </button>
+          </div>
         </form>
 
-        <!-- Divider -->
         <div class="my-6 flex items-center">
-          <div class="flex-grow border-t border-gray-300"></div>
-          <span class="mx-4 text-sm font-medium text-gray-500">Or continue with</span>
-          <div class="flex-grow border-t border-gray-300"></div>
+          <div class="flex-grow border-t border-gray-200"></div>
+          <span class="mx-4 text-xs font-medium text-gray-500 uppercase">Or</span>
+          <div class="flex-grow border-t border-gray-200"></div>
         </div>
 
-        <!-- Google Sign In -->
-        <div>
-          <button
-            @click="handleGoogleLogin"
-            class="w-full flex items-center justify-center px-4 py-3 rounded-xl font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-200 transition-all duration-300 transform hover:scale-[1.02]"
-          >
-            <img class="h-6 w-6 mr-3" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google icon">
-            Sign In with Google
-          </button>
+        <div id="google-signin-button-container-login" class="flex justify-center"></div>
+        <div v-if="errorMessage" class="mt-4 text-red-600 text-sm text-center">
+          {{ errorMessage }}
         </div>
       </div>
 
-      <!-- Right Section (Image/Illustration) -->
-      <div class="hidden md:block md:w-1/2 relative bg-gray-50">
-        <img
-          src="https://placehold.co/800x600/4a90e2/ffffff?text=Welcome+Back"
-          alt="Illustration"
-          class="w-full h-full object-cover"
-        />
-        <!-- Overlay Gradient -->
-        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent"></div>
-      </div>
+      <p class="text-center text-sm text-gray-600">
+        Don't have an account?
+        <router-link to="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
+          Sign up
+        </router-link>
+      </p>
     </div>
   </div>
 </template>
 
+
+
 <script>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import authService from '../services/authService';
 import { globalState } from '../main.js';
 
 export default {
   name: 'Login',
-  data() {
-    return {
-      email: '',
-      password: '',
-    };
-  },
-  methods: {
-    async handleLogin() {
-      try {
-        const userData = { email: this.email, password: this.password };
-        const response = await authService.login(userData);
+  setup() {
+    const router = useRouter();
+    const email = ref('');
+    const password = ref('');
+    const errorMessage = ref('');
 
+    const handleLogin = async () => {
+      try {
+        const userData = { email: email.value, password: password.value };
+        const response = await authService.login(userData);
         globalState.isLoggedIn = true;
         globalState.user = response;
-
-        this.$router.push('/');
+        router.push('/forecast-dashboard');
       } catch (error) {
+        errorMessage.value = error.message || 'Login failed. Please check your credentials.';
         console.error('Login failed:', error.message);
       }
-    },
-    handleGoogleLogin() {
-      
-      // Placeholder for Google login logic
-      console.log('Attempting Google login');
-    },
+    };
+
+    const handleGoogleLogin = async (googleResponse) => {
+        try {
+            const response = await authService.loginWithGoogle(googleResponse.credential);
+            globalState.isLoggedIn = true;
+            globalState.user = response;
+            router.push('/forecast-dashboard');
+        } catch(error) {
+            errorMessage.value = error.message || 'Google Sign-In failed. Please try again.';
+            console.error("Google login failed:", error);
+        }
+    };
+
+    const loadGoogleScript = () => {
+      if (document.getElementById('google-identity-script')) {
+         if (typeof google !== 'undefined') {
+          initializeGoogleSignIn();
+        }
+        return;
+      }
+      const script = document.createElement('script');
+      script.id = 'google-identity-script';
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      script.onload = initializeGoogleSignIn;
+      document.head.appendChild(script);
+    };
+
+    const initializeGoogleSignIn = () => {
+        try {
+            if (typeof google !== 'undefined') {
+                google.accounts.id.initialize({
+                    client_id: document.querySelector('meta[name="google-signin-client_id"]').content,
+                    callback: handleGoogleLogin,
+                });
+                google.accounts.id.renderButton(
+                    document.getElementById('google-signin-button-container-login'),
+                    { theme: 'outline', size: 'large', width: '300' }
+                );
+            } else {
+                console.error("Google object not found after script load.");
+                errorMessage.value = "Could not initialize Google Sign-In. Please try again.";
+            }
+        } catch(error) {
+             console.error("Error initializing Google Sign-In:", error);
+             errorMessage.value = "An error occurred with Google Sign-In.";
+        }
+    };
+
+    onMounted(() => {
+        loadGoogleScript();
+    });
+
+    return {
+      email,
+      password,
+      errorMessage,
+      handleLogin,
+    };
   },
 };
 </script>
+

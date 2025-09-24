@@ -1,528 +1,230 @@
 <template>
-  <div id="app" :style="cssVars" class="leading-relaxed">
-    <!-- Custom Cursor -->
-    <div id="custom-cursor" :class="{ 'expanded': cursorExpanded }" :style="{ left: cursor.x + 'px', top: cursor.y + 'px' }"></div>
+  <div class="min-h-screen font-sans bg-white text-gray-900">
+    <!-- Navbar -->
+    <Navbar />
 
-    <!-- Navigation Bar -->
-    <nav class="container mx-auto px-4 py-6 flex justify-between items-center z-10 relative">
-      <a id="logo" href="#hero" class="text-2xl font-bold playfair" @click.prevent="cyclePalette" @mouseenter="expandCursor" @mouseleave="contractCursor">MetaBerry</a>
-      <ul class="flex space-x-8 text-sm uppercase tracking-wide">
-        <li><a href="#about" class="hover:text-[var(--hover-color)] transition-colors" @click.prevent="scrollToSection('about')" @mouseenter="expandCursor" @mouseleave="contractCursor">About</a></li>
-        <li><a href="#solutions" class="hover:text-[var(--hover-color)] transition-colors" @click.prevent="scrollToSection('solutions')" @mouseenter="expandCursor" @mouseleave="contractCursor">Solutions</a></li>
-        <li><a href="#contact" class="hover:text-[var(--hover-color)] transition-colors" @click.prevent="scrollToSection('contact')" @mouseenter="expandCursor" @mouseleave="contractCursor">Contact</a></li>
-      </ul>
-    </nav>
+    <!-- Hero -->
+    <header class="pt-28 pb-16 bg-gradient-to-b from-white to-gray-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+              Smarter <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Forecasting</span> for a <br class="hidden sm:inline" /> Profitable Future
+            </h1>
+            <p class="text-gray-600 max-w-xl">
+              Souraksh delivers simple, reliable demand forecasting and revenue &amp; profit estimation —
+              so your team can plan with confidence and act with speed.
+            </p>
 
-    <!-- Main Hero Section -->
-    <section id="hero" class="relative overflow-hidden min-h-[90vh] flex flex-col justify-center items-center text-center p-8" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
-      <div class="grainy-background"></div>
-      <div id="polymorph-shape" class="polymorph-shape" :style="polymorphStyle"></div>
-      <div id="hero-text-container" class="relative z-10 max-w-4xl mx-auto" :style="heroTextTransform">
-        <h1 id="main-heading" class="playfair text-6xl md:text-8xl font-black mb-6 leading-tight">
-          Solutions for a Future with History.
-        </h1>
-        <p class="text-xl md:text-2xl mb-10 tracking-wide font-light">
-          We are MetaBerry. We don't just build for tomorrow, we innovate with the wisdom of the past.
-        </p>
-        <a href="#contact" class="retro-button bg-[var(--button-bg-color)] text-[var(--button-text-color)] py-4 px-10 rounded-full font-semibold uppercase tracking-widest text-sm shadow-lg hover:bg-[var(--hover-color)] transition-colors" @mouseenter="expandCursor" @mouseleave="contractCursor">
-          <span class="scramble-text">Connect with Us</span>
-        </a>
-      </div>
-    </section>
+            <div class="flex flex-col sm:flex-row gap-4 mt-4">
+              <router-link
+                to="/register"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-shadow shadow-sm"
+              >
+                Get Started
+              </router-link>
 
-    <!-- About Section -->
-    <section id="about" class="container mx-auto px-4 py-20 relative">
-      <div class="grainy-background"></div>
-      <div class="relative z-10 flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-16">
-        <div class="lg:w-1/2">
-          <h2 class="playfair text-4xl md:text-5xl font-bold mb-6 animate-on-scroll" data-delay="0">
-            Rooted in Values, Growing Towards Innovation.
-          </h2>
-          <p class="text-lg mb-6 animate-on-scroll" data-delay="100">
-            At MetaBerry, we believe that the most powerful innovations are those built on a foundation of timeless principles: integrity, collaboration, and craftsmanship. We blend deep expertise with forward-thinking technology to solve complex challenges across every industry.
-          </p>
-          <p class="text-lg animate-on-scroll" data-delay="200">
-            Our approach is simple: listen intently, design thoughtfully, and build with purpose. We are not just a solutions provider; we are your partner in navigating the ever-evolving landscape of business.
-          </p>
-        </div>
-        <div class="lg:w-1/2 animate-on-scroll" data-delay="300">
-          <img src="https://placehold.co/800x600/e0e0d8/333333?text=Handcrafted+Solution" alt="An artistic, abstract representation of a handcrafted solution" class="rounded-lg shadow-xl" onerror="this.src='https://placehold.co/800x600/e0e0d8/333333?text=Handcrafted+Solution';">
-        </div>
-      </div>
-    </section>
+              <router-link
+                to="/services"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 transition"
+              >
+                Learn More
+              </router-link>
+            </div>
 
-    <!-- Solutions Section -->
-    <section id="solutions" class="container mx-auto px-4 py-20 relative">
-      <div class="grainy-background"></div>
-      <div class="relative z-10 text-center">
-        <h2 class="playfair text-4xl md:text-5xl font-bold mb-16 animate-on-scroll" data-delay="0">Our Solutions</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 animate-on-scroll" data-delay="100">
-            <h3 class="playfair text-3xl font-bold mb-4">Strategic Consulting</h3>
-            <p class="text-md">
-              Transforming ideas into actionable plans with a focus on sustainable growth and future-proof strategy.
-            </p>
+            <div class="mt-6 flex items-center gap-6 text-sm text-gray-500">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center">📈</div>
+                <div>
+                  <div class="font-semibold text-gray-900">95%</div>
+                  <div class="text-xs">Forecast Accuracy</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-indigo-50 flex items-center justify-center">⚡</div>
+                <div>
+                  <div class="font-semibold text-gray-900">Faster Decisions</div>
+                  <div class="text-xs">Reduce planning time by up to 70%</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 animate-on-scroll" data-delay="200">
-            <h3 class="playfair text-3xl font-bold mb-4">Digital Transformation</h3>
-            <p class="text-md">
-              Integrating cutting-edge technology to streamline operations and enhance your digital presence.
-            </p>
-          </div>
-          <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 animate-on-scroll" data-delay="300">
-            <h3 class="playfair text-3xl font-bold mb-4">Creative Direction</h3>
-            <p class="text-md">
-              Crafting unique brand narratives and visual identities that resonate deeply with your audience.
-            </p>
-          </div>
-          <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 animate-on-scroll" data-delay="400">
-            <h3 class="playfair text-3xl font-bold mb-4">Data Analytics</h3>
-            <p class="text-md">
-              Unlocking insights from complex data to inform smarter decisions and drive business forward.
-            </p>
-          </div>
-          <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 animate-on-scroll" data-delay="500">
-            <h3 class="playfair text-3xl font-bold mb-4">Emerging Tech</h3>
-            <p class="text-md">
-              Staying ahead of the curve with solutions in AI, IoT, and blockchain for a truly innovative future.
-            </p>
-          </div>
-          <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 animate-on-scroll" data-delay="600">
-            <h3 class="playfair text-3xl font-bold mb-4">Product Development</h3>
-            <p class="text-md">
-              From concept to launch, we build products that are beautiful, functional, and user-centric.
-            </p>
+
+          <div class="relative">
+            <div class="mx-auto max-w-md lg:max-w-lg bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <div class="text-xs text-gray-500">ForecastX</div>
+                  <div class="font-semibold">Monthly Demand Overview</div>
+                </div>
+                <div class="text-sm text-gray-500">Oct 2025</div>
+              </div>
+
+              <div class="h-44 rounded-lg bg-gradient-to-tr from-indigo-50 to-white flex items-end p-4">
+                <!-- minimal placeholder chart bars -->
+                <div class="w-full flex items-end gap-2">
+                  <div class="flex-1 h-16 rounded-md bg-indigo-600/80"></div>
+                  <div class="flex-1 h-10 rounded-md bg-indigo-400/80"></div>
+                  <div class="flex-1 h-20 rounded-md bg-indigo-600/60"></div>
+                  <div class="flex-1 h-8 rounded-md bg-indigo-300/80"></div>
+                  <div class="flex-1 h-24 rounded-md bg-indigo-700/80"></div>
+                </div>
+              </div>
+
+              <div class="mt-4 text-sm text-gray-600">Projected demand increases during seasonal peak. Inventory suggestions available.</div>
+            </div>
+
+            <div class="hidden lg:block absolute -right-10 -bottom-10 w-64 h-64 rounded-3xl bg-gradient-to-tr from-indigo-100 to-purple-50 transform rotate-12 blur-xl opacity-60"></div>
           </div>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- Call to Action Section -->
-    <section id="contact" class="container mx-auto px-4 py-20 text-center relative">
-      <div class="grainy-background"></div>
-      <div class="relative z-10">
-        <h2 class="playfair text-4xl md:text-5xl font-bold mb-6 animate-on-scroll" data-delay="0">
-          Ready to Blend the Old with the New?
-        </h2>
-        <p class="text-xl mb-8 font-light animate-on-scroll" data-delay="100">
-          Let's discuss how our timeless approach can bring your vision to life.
-        </p>
-        <a href="mailto:hello@metaberry.com" class="retro-button bg-[var(--button-bg-color)] text-[var(--button-text-color)] py-4 px-10 rounded-full font-semibold uppercase tracking-widest text-sm shadow-lg hover:bg-[var(--hover-color)] transition-colors" @mouseenter="expandCursor" @mouseleave="contractCursor">
-          <span class="scramble-text">Connect with Us</span>
-        </a>
+    <!-- Services -->
+    <section class="py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-10">Our Services</h2>
+        <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8">Data-driven forecasting and financial insights tailored to your business.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="service-card">
+            <div class="icon">📊</div>
+            <h3 class="font-semibold text-lg">Demand Forecasting</h3>
+            <p class="text-gray-600 text-sm">Predict product demand accurately to optimize inventory and operations.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">💵</div>
+            <h3 class="font-semibold text-lg">Revenue Estimation</h3>
+            <p class="text-gray-600 text-sm">Forecast revenue trends and inform strategic planning.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">📈</div>
+            <h3 class="font-semibold text-lg">Profitability Analysis</h3>
+            <p class="text-gray-600 text-sm">Analyze costs and margins to maximize profitability.</p>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- Products -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-3xl font-bold">Products</h2>
+          <router-link to="/products" class="text-sm text-indigo-600 font-semibold">View all products →</router-link>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div class="text-sm text-gray-500 mb-2">ForecastX</div>
+            <div class="font-semibold mb-2">AI demand engine</div>
+            <p class="text-gray-600 text-sm">Accurate demand predictions for retail and supply chain.</p>
+          </div>
+
+          <div class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div class="text-sm text-gray-500 mb-2">RevenueVision</div>
+            <div class="font-semibold mb-2">Revenue & trend forecasting</div>
+            <p class="text-gray-600 text-sm">Predict revenue patterns and optimize growth strategies.</p>
+          </div>
+
+          <div class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div class="text-sm text-gray-500 mb-2">ProfitTrack</div>
+            <div class="font-semibold mb-2">Profit estimation toolkit</div>
+            <p class="text-gray-600 text-sm">Track and estimate profitability with actionable insights.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact / Stats -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="text-2xl font-bold mb-6">Our Impact</h2>
+        <p class="text-gray-600 mb-8">Tangible results from forecasting and financial planning.</p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="stat-card">
+            <div class="stat-value">95%</div>
+            <div class="text-xs text-gray-500">Forecast Accuracy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">70%</div>
+            <div class="text-xs text-gray-500">Faster Decisions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">500+</div>
+            <div class="text-xs text-gray-500">Clients Served</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">40%</div>
+            <div class="text-xs text-gray-500">Cost Optimization</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-indigo-700 text-white">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h3 class="text-2xl font-semibold mb-3">Ready to plan with confidence?</h3>
+        <p class="mb-6 text-indigo-100 max-w-2xl mx-auto">Book a demo and we’ll show how Souraksh can transform your planning and profitability.</p>
+        <router-link to="/demo" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-indigo-700 font-semibold">Book a Demo</router-link>
+      </div>
+    </section>
+<Footer />
     <!-- Footer -->
-    <footer class="bg-[var(--footer-bg-color)] text-[var(--footer-text-color)] py-12">
-      <div class="container mx-auto px-4 flex flex-col items-center text-center">
-        <div class="flex space-x-6 mb-6">
-          <a href="#" class="hover:text-[var(--hover-color)] transition-colors text-sm" @mouseenter="expandCursor" @mouseleave="contractCursor">Privacy Policy</a>
-          <a href="#" class="hover:text-[var(--hover-color)] transition-colors text-sm" @mouseenter="expandCursor" @mouseleave="contractCursor">Terms of Service</a>
-          <a href="#" class="hover:text-[var(--hover-color)] transition-colors text-sm" @mouseenter="expandCursor" @mouseleave="contractCursor">Careers</a>
-        </div>
-        <p class="text-xs tracking-wide">&copy; 2024 MetaBerry. All rights reserved.</p>
-      </div>
-    </footer>
+  
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from 'vue';
-
-// Custom Cursor
-const cursor = reactive({ x: 0, y: 0 });
-const cursorExpanded = ref(false);
-
-const expandCursor = () => {
-  cursorExpanded.value = true;
-};
-const contractCursor = () => {
-  cursorExpanded.value = false;
-};
-
-// Color Palettes
-const palettes = [
-  { // 1. MetaBerry Brand (Inspired by logo)
-    bg: '#1a202c',
-    text: '#e2e8f0',
-    buttonBg: '#48bb78',
-    buttonText: '#1a202c',
-    hover: '#68d391',
-    cardBg: '#2d3748',
-    footerBg: '#121a24',
-    footerText: '#cbd5e0',
-    glow: '#48bb78',
-    isNeon: true,
-  },
-  { // 2. Original
-    bg: '#f0f0e8',
-    text: '#333333',
-    buttonBg: '#333333',
-    buttonText: '#f0f0e8',
-    hover: '#888888',
-    cardBg: '#ffffff',
-    footerBg: '#222222',
-    footerText: '#e0e0e0',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 3. Dark Mode
-    bg: '#121212',
-    text: '#e0e0e0',
-    buttonBg: '#e0e0e0',
-    buttonText: '#121212',
-    hover: '#999999',
-    cardBg: '#222222',
-    footerBg: '#000000',
-    footerText: '#999999',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 4. Vibrant
-    bg: '#e8f0f0',
-    text: '#222831',
-    buttonBg: '#F39C12',
-    buttonText: '#222831',
-    hover: '#E67E22',
-    cardBg: '#ffffff',
-    footerBg: '#2C3E50',
-    footerText: '#EAEAEA',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 5. Oceanic
-    bg: '#e6f2ff',
-    text: '#0a3d62',
-    buttonBg: '#0a3d62',
-    buttonText: '#e6f2ff',
-    hover: '#3c6382',
-    cardBg: '#ffffff',
-    footerBg: '#001a33',
-    footerText: '#e6f2ff',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 6. Earthy
-    bg: '#fbf7f0',
-    text: '#442c2e',
-    buttonBg: '#6a5a41',
-    buttonText: '#fbf7f0',
-    hover: '#9b8e76',
-    cardBg: '#ffffff',
-    footerBg: '#2f201e',
-    footerText: '#fbf7f0',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 7. Monochromatic
-    bg: '#e5e5e5',
-    text: '#333333',
-    buttonBg: '#333333',
-    buttonText: '#e5e5e5',
-    hover: '#666666',
-    cardBg: '#ffffff',
-    footerBg: '#111111',
-    footerText: '#999999',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 8. Retro
-    bg: '#ffdd77',
-    text: '#6b4d3a',
-    buttonBg: '#6b4d3a',
-    buttonText: '#ffdd77',
-    hover: '#9e7e6f',
-    cardBg: '#fff2c6',
-    footerBg: '#513d2f',
-    footerText: '#ffdd77',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 9. Cyberpunk
-    bg: '#0a0a1a',
-    text: '#00ffff',
-    buttonBg: '#ff00ff',
-    buttonText: '#0a0a1a',
-    hover: '#990099',
-    cardBg: '#1a1a33',
-    footerBg: '#000000',
-    footerText: '#00ffff',
-    glow: '#ff00ff',
-    isNeon: true,
-  },
-  { // 10. Forest
-    bg: '#f5f5dc',
-    text: '#2e8b57',
-    buttonBg: '#2e8b57',
-    buttonText: '#f5f5dc',
-    hover: '#3cb371',
-    cardBg: '#ffffff',
-    footerBg: '#1a4f32',
-    footerText: '#f5f5dc',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 11. Minimalist
-    bg: '#ffffff',
-    text: '#111111',
-    buttonBg: '#111111',
-    buttonText: '#ffffff',
-    hover: '#555555',
-    cardBg: '#f8f8f8',
-    footerBg: '#000000',
-    footerText: '#dddddd',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 12. Soft Pastel
-    bg: '#fcf8f3',
-    text: '#5c5c8a',
-    buttonBg: '#5c5c8a',
-    buttonText: '#fcf8f3',
-    hover: '#8a8ac9',
-    cardBg: '#ffffff',
-    footerBg: '#444466',
-    footerText: '#fcf8f3',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 13. High Contrast
-    bg: '#f8f9fa',
-    text: '#000000',
-    buttonBg: '#000000',
-    buttonText: '#ffffff',
-    hover: '#444444',
-    cardBg: '#ffffff',
-    footerBg: '#000000',
-    footerText: '#f8f9fa',
-    glow: 'transparent',
-    isNeon: false,
-  },
-  { // 14. Neon Future
-    bg: '#0d0d1a',
-    text: '#ff00ff',
-    buttonBg: '#00ffff',
-    buttonText: '#0d0d1a',
-    hover: '#009999',
-    cardBg: '#1a1a2b',
-    footerBg: '#00000a',
-    footerText: '#ff00ff',
-    glow: '#00ffff',
-    isNeon: true,
-  },
-];
-
-const currentPaletteIndex = ref(0);
-
-const cyclePalette = () => {
-  currentPaletteIndex.value = (currentPaletteIndex.value + 1) % palettes.length;
-};
-
-const cssVars = computed(() => {
-  const palette = palettes[currentPaletteIndex.value];
-  return {
-    '--bg-color': palette.bg,
-    '--text-color': palette.text,
-    '--button-bg-color': palette.buttonBg,
-    '--button-text-color': palette.buttonText,
-    '--hover-color': palette.hover,
-    '--card-bg-color': palette.cardBg,
-    '--footer-bg-color': palette.footerBg,
-    '--footer-text-color': palette.footerText,
-    '--glow-color': palette.glow,
-  };
-});
-
-// Parallax Effect
-const heroTextTransform = reactive({
-  transform: '',
-});
-
-const polymorphStyle = reactive({
-  transform: '',
-  background: '',
-  boxShadow: '',
-});
-
-const handleMouseMove = (e) => {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  const rotateY = ((x / rect.width) - 0.5) * 20; // -10 to 10
-  const rotateX = ((y / rect.height) - 0.5) * -20; // -10 to 10
-
-  heroTextTransform.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-};
-
-const handleMouseLeave = () => {
-  heroTextTransform.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-};
-
-// Text Scramble Effect
-const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}|:"<>?';
-let scrambleIntervals = [];
-
-const applyScramble = (element) => {
-  let originalText = element.textContent;
-  
-  const handleMouseEnter = () => {
-    let count = 0;
-    let interval = setInterval(() => {
-      element.textContent = originalText.split('').map((char, index) => {
-        if (index < count) {
-          return originalText[index];
-        }
-        return characters[Math.floor(Math.random() * characters.length)];
-      }).join('');
-      count += 1;
-      if (count > originalText.length) {
-        clearInterval(interval);
-        element.textContent = originalText;
-      }
-    }, 50);
-    scrambleIntervals.push(interval);
-  };
-
-  const handleMouseLeave = () => {
-    scrambleIntervals.forEach(clearInterval);
-    element.textContent = originalText;
-  };
-
-  element.addEventListener('mouseenter', handleMouseEnter);
-  element.addEventListener('mouseleave', handleMouseLeave);
-};
-
-// Scroll Animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const delay = entry.target.getAttribute('data-delay');
-      if (delay) {
-        setTimeout(() => {
-          entry.target.classList.add('is-visible');
-        }, delay);
-      } else {
-        entry.target.classList.add('is-visible');
-      }
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-const scrollToSection = (id) => {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
-
-onMounted(() => {
-  // Custom Cursor
-  document.addEventListener('mousemove', (e) => {
-    cursor.x = e.clientX;
-    cursor.y = e.clientY;
-  });
-
-  document.querySelectorAll('.scramble-text').forEach(applyScramble);
-  document.querySelectorAll('.animate-on-scroll').forEach(element => {
-    observer.observe(element);
-  });
-});
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 </script>
 
 <style scoped>
-:root {
-  --bg-color: #1a202c;
-  --text-color: #e2e8f0;
-  --button-bg-color: #48bb78;
-  --button-text-color: #1a202c;
-  --hover-color: #68d391;
-  --card-bg-color: #2d3748;
-  --footer-bg-color: #121a24;
-  --footer-text-color: #cbd5e0;
-  --glow-color: #48bb78;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+:root{
+  --accent-1: #5b21b6; /* indigo-600 */
+  --accent-2: #7c3aed; /* purple-600 */
 }
 
-body {
-  font-family: 'Inter', sans-serif;
-  color: var(--text-color);
-  overflow-x: hidden;
-  cursor: none;
-  background-color: var(--bg-color);
-  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
-}
-.playfair {
-  font-family: 'Playfair Display', serif;
-}
-.grainy-background {
-  background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-size: cover;
-  opacity: 0.07;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+*{box-sizing:border-box}
+
+.font-sans{font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+
+.text-gradient{
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Animation for scroll-triggered elements */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+.service-card{
+  background:white;
+  padding:18px;
+  border-radius:14px;
+  border:1px solid #f1f5f9;
+  box-shadow:0 1px 4px rgba(16,24,40,0.03);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
-.animate-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.service-card .icon{width:46px;height:46px;border-radius:10px;background:#f8fafc;display:flex;align-items:center;justify-content:center;font-size:20px}
 
-/* Custom Cursor */
-#custom-cursor {
-  position: fixed;
-  z-index: 9999;
-  width: 1rem;
-  height: 1rem;
-  background-color: var(--button-bg-color);
-  border-radius: 50%;
-  pointer-events: none;
-  transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease, background-color 0.5s ease;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px var(--glow-color); /* Added glow effect */
+.stat-card{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  border:1px solid #f1f5f9;
 }
-#custom-cursor.expanded {
-  width: 3rem;
-  height: 3rem;
-  opacity: 0.3;
-}
+.stat-value{font-weight:700;font-size:22px;color:var(--accent-1)}
 
-/* Neon glow animation for buttons */
-.retro-button.neon-glow {
-  box-shadow: 0 0 15px var(--glow-color);
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-/* Polymorphic shape animation */
-.polymorph-shape {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  height: 400px;
-  background: rgba(0, 0, 0, 0.1);
-  transform: translate(-50%, -50%);
-  animation: morph 8s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-  backdrop-filter: blur(10px);
-}
-
-@keyframes morph {
-  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(-50%, -50%) rotate(0deg); opacity: 0.3; }
-  25% { border-radius: 40% 60% 70% 30% / 50% 70% 30% 50%; transform: translate(-50%, -50%) rotate(45deg); opacity: 0.4; }
-  50% { border-radius: 70% 30% 50% 50% / 30% 50% 50% 70%; transform: translate(-50%, -50%) rotate(90deg); opacity: 0.5; }
-  75% { border-radius: 30% 70% 60% 40% / 70% 40% 60% 30%; transform: translate(-50%, -50%) rotate(135deg); opacity: 0.4; }
-  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(-50%, -50%) rotate(180deg); opacity: 0.3; }
+/* responsive tweaks */
+@media (min-width:1024px){
+  header{padding-top:4rem}
 }
 </style>
