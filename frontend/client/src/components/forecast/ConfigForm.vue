@@ -35,6 +35,12 @@
               <input type="text" v-model="formData.city" class="input-field" placeholder="e.g., San Francisco" />
             </div>
         </div>
+        <div style="margin-top: 1rem; padding: 0.75rem; background-color: #f3f4f6; border-radius: 0.375rem; font-size: 0.875rem;">
+            <p style="color: #4b5563; font-weight: 500; margin: 0 0 0.5rem 0;">Supported Countries for Holiday Analysis:</p>
+            <p style="color: #6b7280; margin: 0; line-height: 1.5;">
+                United States, India, Canada, United Kingdom, Australia, Germany, France, Japan, Brazil, Mexico.
+            </p>
+        </div>
       </div>
 
       <!-- Forecast Settings -->
@@ -55,6 +61,16 @@
                 <label class="form-label">Forecast Horizon *</label>
                 <input type="number" v-model="formData.horizon" class="input-field" min="1" max="365" required />
                  <p class="form-hint">Number of {{ horizonUnit }} to forecast</p>
+            </div>
+        </div>
+        <div class="form-grid" style="margin-top: 1.5rem; grid-template-columns: 1fr 1fr;">
+            <div style="display: flex; align-items: center;">
+                <input type="checkbox" id="apply_holidays" v-model="formData.apply_holidays" style="height: 1rem; width: 1rem; margin-right: 0.5rem;">
+                <label for="apply_holidays" class="form-label" style="margin-bottom: 0;">Apply Country Holidays</label>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <input type="checkbox" id="apply_ai_adjustment" v-model="formData.apply_ai_adjustment" style="height: 1rem; width: 1rem; margin-right: 0.5rem;">
+                <label for="apply_ai_adjustment" class="form-label" style="margin-bottom: 0;">Enable AI Adjustment</label>
             </div>
         </div>
       </div>

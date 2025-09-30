@@ -10,11 +10,13 @@
 
     <!-- Desktop Nav -->
     <div class="hidden md:flex items-center space-x-8">
-      <router-link to="/" class="nav-link">Home</router-link>
-      <router-link to="/about" class="nav-link">About</router-link>
-      <router-link to="/services" class="nav-link">Services</router-link>
-      <router-link to="/pricing" class="nav-link">Pricing</router-link>
-      <router-link to="/testimonials" class="nav-link">Testimonials</router-link>
+      <template v-if="!globalState.isLoggedIn">
+        <router-link to="/" class="nav-link">Home</router-link>
+        <router-link to="/about" class="nav-link">About</router-link>
+        <router-link to="/services" class="nav-link">Services</router-link>
+        <router-link to="/pricing" class="nav-link">Pricing</router-link>
+        <router-link to="/testimonials" class="nav-link">Testimonials</router-link>
+      </template>
       <router-link to="/forecast-dashboard" class="nav-link">Forecast</router-link>
 
       <!-- Auth Buttons -->
@@ -46,11 +48,13 @@
     <transition name="fade">
       <div v-if="mobileMenuOpen" class="absolute top-16 left-0 w-full bg-white border-t border-gray-200 shadow-md md:hidden">
         <div class="flex flex-col space-y-4 px-6 py-4">
-          <router-link to="/" class="nav-link" @click="toggleMobileMenu">Home</router-link>
-          <router-link to="/about" class="nav-link" @click="toggleMobileMenu">About</router-link>
-          <router-link to="/services" class="nav-link" @click="toggleMobileMenu">Services</router-link>
-          <router-link to="/pricing" class="nav-link" @click="toggleMobileMenu">Pricing</router-link>
-          <router-link to="/testimonials" class="nav-link" @click="toggleMobileMenu">Testimonials</router-link>
+          <template v-if="!globalState.isLoggedIn">
+            <router-link to="/" class="nav-link" @click="toggleMobileMenu">Home</router-link>
+            <router-link to="/about" class="nav-link" @click="toggleMobileMenu">About</router-link>
+            <router-link to="/services" class="nav-link" @click="toggleMobileMenu">Services</router-link>
+            <router-link to="/pricing" class="nav-link" @click="toggleMobileMenu">Pricing</router-link>
+            <router-link to="/testimonials" class="nav-link" @click="toggleMobileMenu">Testimonials</router-link>
+          </template>
           <router-link to="/forecast-dashboard" class="nav-link" @click="toggleMobileMenu">Forecast</router-link>
 
           <template v-if="globalState.isLoggedIn">

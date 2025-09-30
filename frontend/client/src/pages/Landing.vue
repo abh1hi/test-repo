@@ -9,19 +9,18 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div class="space-y-6">
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-              Smarter <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Forecasting</span> for a <br class="hidden sm:inline" /> Profitable Future
+              AI-Powered  <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Forecasting</span> for Smarter Business Decisions
             </h1>
             <p class="text-gray-600 max-w-xl">
-              Souraksh delivers simple, reliable demand forecasting and revenue &amp; profit estimation —
-              so your team can plan with confidence and act with speed.
+              Turn your sales data into actionable forecasts, insights, and revenue projections.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 mt-4">
               <router-link
-                to="/register"
-                class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-shadow shadow-sm"
+                to="/demo"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold hover:from-blue-600 hover:to-purple-600 transition-shadow shadow-sm"
               >
-                Get Started
+                Request a Demo
               </router-link>
 
               <router-link

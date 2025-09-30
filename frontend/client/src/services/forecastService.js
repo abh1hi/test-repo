@@ -1,33 +1,75 @@
 // File: frontend/client/src/services/forecastService.js
+import axios from 'axios';
+
+const API_URL = 'http://localhost:5000/api/forecast';
+
+// Function to get the auth token from localStorage
+const getAuthToken = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user ? user.token : null;
+};
 
 export async function getCountries() {
-    await new Promise(res => setTimeout(res, 500));
-    return [{ value: 'USA', label: 'United States' }, { value: 'India', label: 'India' }];
+    // This can be replaced with an API call if needed
+    await new Promise(res => setTimeout(res, 100));
+    return [
+        { value: 'US', label: 'United States' },
+        { value: 'IN', label: 'India' },
+        { value: 'CA', label: 'Canada' },
+        { value: 'GB', label: 'United Kingdom' },
+        { value: 'AU', label: 'Australia' },
+        { value: 'DE', label: 'Germany' },
+        { value: 'FR', label: 'France' },
+        { value: 'JP', label: 'Japan' },
+        { value: 'BR', label: 'Brazil' },
+        { value: 'MX', label: 'Mexico' },
+    ];
 }
 
 export async function getSubdivisions(country) {
-    await new Promise(res => setTimeout(res, 500));
-    if (country === 'USA') return [{ value: 'CA', label: 'California' }, { value: 'NY', label: 'New York' }];
-    if (country === 'India') return [{ value: 'MH', label: 'Maharashtra' }, { value: 'DL', label: 'Delhi' }];
+    // This can be replaced with an API call if needed
+    await new Promise(res => setTimeout(res, 100));
+    if (country === 'US') return [{ value: 'CA', label: 'California' }, { value: 'NY', label: 'New York' }];
+    if (country === 'IN') return [{ value: 'MH', label: 'Maharashtra' }, { value: 'DL', label: 'Delhi' }];
     return [];
 }
 
 export async function generateForecast(params) {
-    console.log("Generating forecast with:", params);
-    await new Promise(res => setTimeout(res, 2000));
-    if (params.industry === 'other') {
-       throw new Error("Industry 'other' is not supported in this mock.");
+    const token = getAuthToken();
+    if (!token) {
+        throw new Error('Authentication token not found.');
     }
-    const history = Array.from({ length: 50 }, (_, i) => ({ ds: `2023-${String(Math.floor(i/4)+1).padStart(2, '0')}-${String((i%4)*7+1).padStart(2,'0')}`, y: 1000 + i * 10 + Math.random() * 100 }));
-    const forecast_base = Array.from({ length: params.horizon }, (_, i) => {
-       const yhat = 1500 + i * 10 + Math.random() * 50;
-       return { ds: `2024-${String(Math.floor(i/4)+1).padStart(2, '0')}-${String((i%4)*7+1).padStart(2,'0')}`, yhat, yhat_lower: yhat * 0.9, yhat_upper: yhat * 1.1 };
-    });
-    const forecast_final = forecast_base.map(p => ({ ds: p.ds, yhat_final: p.yhat * (params.apply_ai_adjustment ? 1.15 : 1) }));
-    
-    return {
-      meta: { freq: params.freq, train_start: "2023-01-01", train_end: "2023-12-31", horizon: params.horizon, holidays_used: params.apply_holidays ? ['Christmas'] : [], original_rows: 250, processed_rows: 248, null_dates: 1, null_targets: 1 },
-      ai_adjustment: params.apply_ai_adjustment ? { applied: true, adjustment_pct: 15.0, rationale: "Economic indicators suggest strong consumer spending.", sources: ["https://example.com/report"] } : { applied: false },
-      history, forecast_base, forecast_final,
-    };
+
+    const formData = new FormData();
+    formData.append('file', params.file);
+    formData.append('industry', params.industry);
+    formData.append('country', params.country);
+    formData.append('freq', params.freq);
+    formData.append('horizon', params.horizon);
+    formData.append('date_col', params.date_col);
+    formData.append('target_col', params.target_col);
+    if (params.state) {
+        formData.append('state', params.state);
+    }
+    if (params.city) {
+        formData.append('city', params.city);
+    }
+    formData.append('apply_holidays', params.apply_holidays);
+    formData.append('apply_ai_adjustment', params.apply_ai_adjustment);
+
+    try {
+        const response = await axios.post(API_URL, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message || 'An error occurred during forecast generation.');
+        } else {
+            throw new Error('An error occurred during forecast generation.');
+        }
+    }
 }

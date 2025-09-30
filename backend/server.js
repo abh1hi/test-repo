@@ -6,6 +6,7 @@ const cors = require('cors');
 
 // Import only the required routes
 const authRoutes = require('./routes/authRoutes');
+const forecastRoutes = require('./routes/forecastRoutes');
 
 const { errorHandler } = require('./middleware/errorMiddleware');
 const { protect } = require('./middleware/authMiddleware');
@@ -17,7 +18,11 @@ const port = process.env.PORT || 5000;
 const mongoURI = process.env.MONGO_URI; // Will be read from .env
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 
 // Database Connection
@@ -35,7 +40,7 @@ mongoose.connect(mongoURI, {
 // Using only the authentication routes for the streamlined application.
 // Other routes like influencers, campaigns, and payments have been removed.
 app.use('/api/auth', authRoutes);
-
+app.use('/api/forecast', forecastRoutes);
 
 // Test protected route
 app.get('/api/protected', protect, (req, res) => {
@@ -54,4 +59,3 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
 });
-
