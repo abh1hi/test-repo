@@ -106,6 +106,13 @@
               <span>{{ isLoading ? 'Generating Forecast...' : 'Generate Forecast' }}</span>
           </button>
       </div>
+
+      <!-- Privacy Notice -->
+      <div style="margin-top: 1.5rem; padding: 1rem; background-color: #94b7ff; border-radius: 0.375rem; text-align: center;">
+          <p style="font-size: 0.875rem; color:  #000000; margin: 0;">
+              <strong>Privacy Notice:</strong> Your sales data is processed only on our server for modeling and never sent to external AI models. Only anonymous context (industry/location/horizon) is sent to AI models for macro adjustment.
+          </p>
+      </div>
     </form>
   </div>
 </template>
@@ -183,6 +190,23 @@ const onFormSubmit = () => {
 </script>
 
 <style scoped>
+.progress-bar-indeterminate {
+  height: 100%;
+  background-color: #3b82f6;
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+    width: 40%;
+  }
+  100% {
+    transform: translateX(250%);
+    width: 40%;
+  }
+}
+
 .form-label {
     display: block;
     font-size: 0.875rem;

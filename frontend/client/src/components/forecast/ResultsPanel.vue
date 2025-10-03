@@ -24,79 +24,7 @@
         <!-- Tab Content -->
         <div class="card" style="border-radius: 0 0 0.5rem 0.5rem; border-top: none;">
              <div v-if="activeTab === 'forecast'" style="padding: 2rem;">
-                <ForecastChart 
-                    :history="data.history"
-                    :forecast-base="data.forecast_base"
-                    :forecast-final="data.forecast_final"
-                    :ai-adjustment="data.ai_adjustment"
-                />
-
-                <!-- Metadata -->
-                <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-                  <div class="card" style="padding: 1rem;">
-                    <h3 style="font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.75rem;">Forecast Details</h3>
-                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                      <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
-                        <!-- Placeholder for Calendar icon -->
-                        <span style="height: 0.75rem; width: 0.75rem; color: #9ca3af;"></span>
-                        <span>Frequency: {{ config.freq === 'D' ? 'Daily' : config.freq === 'W' ? 'Weekly' : 'Monthly' }}</span>
-                      </div>
-                      <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
-                        <!-- Placeholder for MapPin icon -->
-                        <span style="height: 0.75rem; width: 0.75rem; color: #9ca3af;"></span>
-                        <span>
-                          {{ config.industry }} &bull; {{ config.city ? `${config.city}, ` : '' }}{{ config.state ? `${config.state}, ` : '' }}{{ config.country }}
-                        </span>
-                      </div>
-                      <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
-                        <!-- Placeholder for TrendingUp icon -->
-                        <span style="height: 0.75rem; width: 0.75rem; color: #9ca3af;"></span>
-                        <span>Horizon: {{ data.meta.horizon }} periods</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card" style="padding: 1rem;">
-                    <h3 style="font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.75rem;">Data Quality</h3>
-                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                      <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
-                        <span style="color: #4b5563;">Training Period:</span>
-                        <span style="font-weight: 500;">{{ new Date(data.meta.train_start).toLocaleDateString() }} to {{ new Date(data.meta.train_end).toLocaleDateString() }}</span>
-                      </div>
-                      <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
-                        <span style="color: #4b5563;">Data Points:</span>
-                        <span style="font-weight: 500;">{{ data.meta.processed_rows }} processed / {{ data.meta.original_rows }} original</span>
-                      </div>
-                      <div v-if="data.meta.holidays_used && data.meta.holidays_used.length > 0" style="display: flex; justify-content: space-between; font-size: 0.75rem;">
-                        <span style="color: #4b5563;">Holidays:</span>
-                        <span style="font-weight: 500;">{{ data.meta.holidays_used.length }} included</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div style="margin-top: 2rem;">
-                    <h4 style="font-size: 1.125rem; color: #111827; margin-bottom: 1rem;">Forecast Summary</h4>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
-                        <thead>
-                            <tr style="background-color: #f9fafb; border-bottom: 1px solid #e5e7eb;">
-                                <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #374151;">Period</th>
-                                <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #374151;">Base Forecast</th>
-                                <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #374151;">Lower Bound</th>
-                                <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #374151;">Upper Bound</th>
-                                <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #374151;">AI Adjusted</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in data.forecast_final" :key="item.ds" style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 0.75rem;">{{ new Date(item.ds).toLocaleDateString() }}</td>
-                                <td style="padding: 0.75rem;">{{ Math.round(item.yhat_lower).toLocaleString() }}</td>
-                                <td style="padding: 0.75rem;">{{ Math.round(item.yhat_lower).toLocaleString() }}</td>
-                                <td style="padding: 0.75rem;">{{ Math.round(item.yhat_upper).toLocaleString() }}</td>
-                                <td style="padding: 0.75rem; font-weight: 600; color: #111827;">{{ Math.round(item.yhat_final).toLocaleString() }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                
                 <div style="margin-top: 2rem;" v-if="data.ai_adjustment.applied">
                     <h4 style="font-size: 1.125rem; color: #111827; margin-bottom: 1rem;">AI Macro Adjustment Applied</h4>
                     <div style="background-color: #f0f9ff; border-radius: 0.375rem; padding: 1rem; font-size: 0.875rem;">
@@ -114,6 +42,65 @@
                         </div>
                     </div>
                 </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4 style="font-size: 1.125rem; color: #111827; margin-bottom: 1rem;">Forecast Summary</h4>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+                        <thead>
+                            <tr style="background-color: #f9fafb; border-bottom: 1px solid #e5e7eb;">
+                                <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #374151;">Period</th>
+                                <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #374151;">Base Forecast</th>
+                                <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #374151;">AI Adjusted</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in summaryData" :key="item.ds" style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 0.75rem;">{{ new Date(item.ds).toLocaleDateString() }}</td>
+                                <td style="padding: 0.75rem;">{{ Math.round(item.yhat || 0).toLocaleString() }}</td>
+                                <td style="padding: 0.75rem; font-weight: 600; color: #111827;">{{ Math.round(item.yhat_final || item.yhat || 0).toLocaleString() }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Metadata -->
+                <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                  <div class="card" style="padding: 1rem;">
+                    <h3 style="font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.75rem;">Forecast Details</h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.75rem;">
+                      <div>
+                        <span style="font-weight: 600; color: #374151;">Frequency: </span>
+                        <span>{{ config.freq === 'D' ? 'Daily' : config.freq === 'W' ? 'Weekly' : 'Monthly' }}</span>
+                      </div>
+                      <div style="display: flex; justify-content: space-between;">
+                          <div>
+                              <span style="font-weight: 600; color: #374151;">Industry: </span>
+                              <span>{{ config.industry }}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                              <span style="font-weight: 600; color: #374151;">Location: </span>
+                              <span>{{ config.city ? `${config.city}, ` : '' }}{{ config.state ? `${config.state}, ` : '' }}{{ config.country }}</span>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card" style="padding: 1rem;">
+                    <h3 style="font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.75rem;">Data Quality</h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                      <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
+                        <span style="color: #4b5563;">Training Period:</span>
+                        <span style="font-weight: 500;">{{ new Date(data.meta.train_start).toLocaleDateString() }} to {{ new Date(data.meta.train_end).toLocaleDateString() }}</span>
+                      </div>
+                      <div v-if="data.meta.holidays_used && data.meta.holidays_used.length > 0" style="display: flex; justify-content: space-between; font-size: 0.75rem;">
+                        <span style="color: #4b5563;">Holidays:</span>
+                        <span style="font-weight: 500;">{{ data.meta.holidays_used.length }} included</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
              </div>
              <div v-if="activeTab === 'analysis'">
                  <AnalysisModule :data="data.history" title="Historical Data Analysis" />
@@ -126,10 +113,9 @@
 </template>
 
 <script setup>
-import { ref, defineAsyncComponent } from 'vue';
+import { ref, defineAsyncComponent, computed } from 'vue';
 import AnalysisModule from './AnalysisModule.vue';
 import FinancialProjection from './FinancialProjection.vue';
-import ForecastChart from './ForecastChart.vue';
 
 const props = defineProps({
     data: Object,
@@ -150,6 +136,29 @@ const tabs = [
 const LineChartIcon = defineAsyncComponent(async () => ({ template: '<div></div>' }));
 const TrendingUpIcon = defineAsyncComponent(async () => ({ template: '<div></div>' }));
 const DollarSignIcon = defineAsyncComponent(async () => ({ template: '<div></div>' }));
+
+const summaryData = computed(() => {
+    if (!props.data || !props.data.forecast_base) {
+        return [];
+    }
+
+    // Create a map of final forecast data for easy lookup by date
+    const finalDataMap = new Map(
+        (props.data.forecast_final || []).map(item => [item.ds, item])
+    );
+
+    // Merge base forecast data with final forecast data
+    return props.data.forecast_base.map(baseItem => {
+        const finalItem = finalDataMap.get(baseItem.ds) || {};
+        return {
+            ds: baseItem.ds,
+            yhat: baseItem.yhat,
+            yhat_lower: finalItem.yhat_lower,
+            yhat_upper: finalItem.yhat_upper,
+            yhat_final: finalItem.yhat_final,
+        };
+    });
+});
 
 const downloadCsv = () => {
     const { history, forecast_base, forecast_final, ai_adjustment } = props.data;
@@ -221,3 +230,4 @@ const downloadCsv = () => {
   border-bottom-color: #0284c7;
 }
 </style>
+

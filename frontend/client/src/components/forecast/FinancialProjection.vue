@@ -152,8 +152,8 @@ const financialChart = ref(null);
 let chartInstance = null;
 
 const currency = computed(() => {
-  const currencySymbol = props.country === 'India' ? '₹' : '$';
-  const currencyName = props.country === 'India' ? 'INR' : 'USD';
+  const currencySymbol = props.country === 'IN' ? '₹' : '$';
+  const currencyName = props.country === 'IN' ? 'INR' : 'USD';
   return { symbol: currencySymbol, name: currencyName };
 });
 
@@ -255,6 +255,18 @@ const downloadFinancialProjection = () => {
 };
 
 const updateChart = () => {
+  if (!financialChart.value) {
+    if (chartInstance && !chartInstance.isDisposed()) {
+      chartInstance.dispose();
+    }
+    chartInstance = null;
+    return;
+  }
+
+  if ((!chartInstance || chartInstance.isDisposed()) && window.echarts) {
+    chartInstance = window.echarts.init(financialChart.value);
+  }
+
   if (!chartInstance) return;
 
   const metrics = financialMetrics.value;
@@ -302,12 +314,9 @@ const updateChart = () => {
 };
 
 onMounted(() => {
-  nextTick(() => {
-    if (financialChart.value && window.echarts) {
-      chartInstance = window.echarts.init(financialChart.value);
-      updateChart();
-    }
-  });
+  // We still call updateChart on mount to draw the initial state.
+  // The new logic inside updateChart will handle the initialization.
+  nextTick(updateChart);
 });
 
 watch(inputs, () => {
@@ -389,3 +398,5 @@ watch(() => props.forecastData, () => {
   color: #6b7280;
 }
 </style>
+
+

@@ -10,22 +10,26 @@
 
     <!-- Desktop Nav -->
     <div class="hidden md:flex items-center space-x-8">
-      <template v-if="!globalState.isLoggedIn">
+      <!-- Logged-in navigation -->
+      <template v-if="globalState.isLoggedIn">
+        <router-link v-if="isForecastPage" to="/" class="nav-link">Home</router-link>
+        <router-link v-else-if="isHomePage" to="/forecast-dashboard" class="nav-link">Forecast</router-link>
+      </template>
+
+      <!-- Logged-out navigation -->
+      <template v-else>
         <router-link to="/" class="nav-link">Home</router-link>
         <router-link to="/about" class="nav-link">About</router-link>
         <router-link to="/services" class="nav-link">Services</router-link>
         <router-link to="/pricing" class="nav-link">Pricing</router-link>
         <router-link to="/testimonials" class="nav-link">Testimonials</router-link>
+        <router-link to="/forecast-dashboard" class="nav-link">Forecast</router-link>
       </template>
-      <router-link to="/forecast-dashboard" class="nav-link">Forecast</router-link>
 
       <!-- Auth Buttons -->
       <template v-if="globalState.isLoggedIn">
         <div class="flex items-center space-x-4">
-          <!-- Logout -->
-          <button @click="logout" class="btn-outline">
-            Log Out
-          </button>
+          <button @click="logout" class="btn-outline">Log Out</button>
         </div>
       </template>
       <template v-else>
@@ -48,15 +52,23 @@
     <transition name="fade">
       <div v-if="mobileMenuOpen" class="absolute top-16 left-0 w-full bg-white border-t border-gray-200 shadow-md md:hidden">
         <div class="flex flex-col space-y-4 px-6 py-4">
-          <template v-if="!globalState.isLoggedIn">
+          <!-- Logged-in navigation -->
+          <template v-if="globalState.isLoggedIn">
+            <router-link v-if="isForecastPage" to="/" class="nav-link" @click="toggleMobileMenu">Home</router-link>
+            <router-link v-else-if="isHomePage" to="/forecast-dashboard" class="nav-link" @click="toggleMobileMenu">Forecast</router-link>
+          </template>
+
+          <!-- Logged-out navigation -->
+          <template v-else>
             <router-link to="/" class="nav-link" @click="toggleMobileMenu">Home</router-link>
             <router-link to="/about" class="nav-link" @click="toggleMobileMenu">About</router-link>
             <router-link to="/services" class="nav-link" @click="toggleMobileMenu">Services</router-link>
             <router-link to="/pricing" class="nav-link" @click="toggleMobileMenu">Pricing</router-link>
             <router-link to="/testimonials" class="nav-link" @click="toggleMobileMenu">Testimonials</router-link>
+            <router-link to="/forecast-dashboard" class="nav-link" @click="toggleMobileMenu">Forecast</router-link>
           </template>
-          <router-link to="/forecast-dashboard" class="nav-link" @click="toggleMobileMenu">Forecast</router-link>
 
+          <!-- Auth Buttons -->
           <template v-if="globalState.isLoggedIn">
             <button @click="logout" class="btn-outline text-left">Log Out</button>
           </template>
@@ -70,36 +82,32 @@
   </nav>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { globalState } from '../main.js';
-import { useRouter } from 'vue-router';
 
-export default {
-  name: 'Navbar',
-  setup() {
-    const router = useRouter();
-    const logout = () => {
-      localStorage.removeItem('user');
-      globalState.isLoggedIn = false;
-      globalState.user = null;
-      router.push('/login');
-    };
-    return {
-      globalState,
-      logout,
-    };
-  },
-  data() {
-    return {
-      mobileMenuOpen: false,
-    };
-  },
-  methods: {
-    toggleMobileMenu() {
-      this.mobileMenuOpen = !this.mobileMenuOpen;
-    },
-  },
+const route = useRoute();
+const router = useRouter();
+
+const mobileMenuOpen = ref(false);
+
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value;
 };
+
+const logout = () => {
+  localStorage.removeItem('user');
+  globalState.isLoggedIn = false;
+  globalState.user = null;
+  if (mobileMenuOpen.value) {
+    mobileMenuOpen.value = false;
+  }
+  router.push('/login');
+};
+
+const isForecastPage = computed(() => route.path === '/forecast-dashboard');
+const isHomePage = computed(() => route.path === '/');
 </script>
 
 <style scoped>

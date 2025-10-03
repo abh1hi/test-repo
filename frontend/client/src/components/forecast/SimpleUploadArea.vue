@@ -24,7 +24,7 @@
                 <h3 style="font-size: 1.125rem; font-weight: 500; color: #111827; margin-bottom: 0.5rem;">Upload your sales data</h3>
                 <p style="color: #6b7280; margin-bottom: 1rem;">Drag and drop your CSV or Excel file here, or click to browse</p>
                 <label for="file-upload" class="btn-primary" style="cursor: pointer; display: inline-block;">Choose File</label>
-                <p style="font-size: 0.75rem; color: #6b7280; margin-top: 0.5rem;">Supports CSV, XLSX, and XLS files up to 10MB</p>
+                <p style="font-size: 0.75rem; color: #6b7280; margin-top: 0.5rem;">Supports CSV, XLSX, and XLS files up to 10MB please download the sample file from here</p>
             </div>
         </div>
       </div>

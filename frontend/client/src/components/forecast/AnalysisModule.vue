@@ -23,7 +23,12 @@
           <div ref="yearlyBarChart" style="width: 100%; height: 300px;"></div>
         </div>
         <div v-if="selectedYear">
-          <h4 style="color: #111827; font-size: 1.125rem; margin-bottom: 1rem;">Monthly Sales for {{ selectedYear }}</h4>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4 style="color: #111827; font-size: 1.125rem; margin: 0;">Monthly Sales for {{ selectedYear }}</h4>
+            <select v-model="selectedYear" class="input-field" style="width: auto; padding: 0.5rem 1rem;">
+              <option v-for="year in processedData.years" :key="year" :value="year">{{ year }}</option>
+            </select>
+          </div>
           <div ref="monthlyBarChart" style="width: 100%; height: 300px;"></div>
         </div>
         <div>
@@ -32,11 +37,15 @@
         </div>
       </div>
 
-      <!-- Single-year chart -->
-      <div v-else>
+      <!-- Single-year charts -->
+      <div v-else style="display: grid; gap: 2.5rem;">
         <div>
           <h4 style="color: #111827; font-size: 1.125rem; margin-bottom: 1rem;">Monthly Sales</h4>
           <div ref="monthlyBarChart" style="width: 100%; height: 300px;"></div>
+        </div>
+        <div>
+          <h4 style="color: #111827; font-size: 1.125rem; margin-bottom: 1rem;">Monthly Sales Trend</h4>
+          <div ref="singleYearMonthlyLineChart" style="width: 100%; height: 300px;"></div>
         </div>
       </div>
     </div>
@@ -60,10 +69,12 @@ const props = defineProps({
 const yearlyBarChart = ref(null);
 const monthlyBarChart = ref(null);
 const monthlyLineChart = ref(null);
+const singleYearMonthlyLineChart = ref(null);
 
 let yearlyBarChartInstance = null;
 let monthlyBarChartInstance = null;
 let monthlyLineChartInstance = null;
+let singleYearMonthlyLineChartInstance = null;
 
 const selectedYear = ref(null);
 
@@ -75,25 +86,25 @@ const processedData = computed(() => {
   }
 
   const parsedData = props.data.map(point => ({ ...point, date: new Date(point.ds) }));
-  const years = [...new Set(parsedData.map(d => d.date.getFullYear()))].sort();
+  const years = [...new Set(parsedData.map(d => d.date.getFullYear()))].sort().map(String);
   const isMultiYear = years.length > 1;
 
   const yearlyData = years.map(year => {
       const totalSales = parsedData
-          .filter(d => d.date.getFullYear() === year)
+          .filter(d => d.date.getFullYear() === parseInt(year))
           .reduce((sum, d) => sum + (d.y || 0), 0);
-      return { year: year.toString(), sales: Math.round(totalSales) };
+      return { year: year, sales: Math.round(totalSales) };
   });
 
   const monthlyDataByYear = new Map();
   years.forEach(year => {
-      const yearData = parsedData.filter(d => d.date.getFullYear() === year);
+      const yearData = parsedData.filter(d => d.date.getFullYear() === parseInt(year));
       const monthlyAgg = new Array(12).fill(0);
       yearData.forEach(point => {
           const month = point.date.getMonth();
           monthlyAgg[month] += (point.y || 0);
       });
-      monthlyDataByYear.set(year.toString(), monthlyAgg.map(s => Math.round(s)));
+      monthlyDataByYear.set(year, monthlyAgg.map(s => Math.round(s)));
   });
 
   return { isMultiYear, years, yearlyData, monthlyDataByYear };
@@ -105,11 +116,13 @@ const reinitCharts = () => {
         if (yearlyBarChartInstance) yearlyBarChartInstance.dispose();
         if (monthlyBarChartInstance) monthlyBarChartInstance.dispose();
         if (monthlyLineChartInstance) monthlyLineChartInstance.dispose();
+        if (singleYearMonthlyLineChartInstance) singleYearMonthlyLineChartInstance.dispose();
 
         // Init new instances
         if (yearlyBarChart.value) yearlyBarChartInstance = window.echarts.init(yearlyBarChart.value);
         if (monthlyBarChart.value) monthlyBarChartInstance = window.echarts.init(monthlyBarChart.value);
         if (monthlyLineChart.value) monthlyLineChartInstance = window.echarts.init(monthlyLineChart.value);
+        if (singleYearMonthlyLineChart.value) singleYearMonthlyLineChartInstance = window.echarts.init(singleYearMonthlyLineChart.value);
         
         if (yearlyBarChartInstance) {
             yearlyBarChartInstance.on('click', (params) => {
@@ -125,7 +138,7 @@ const reinitCharts = () => {
 
 watch(() => processedData.value.isMultiYear, (isMulti) => {
     if (isMulti && processedData.value.years.length > 0) {
-        selectedYear.value = processedData.value.years[0].toString();
+        selectedYear.value = processedData.value.years[0];
     } else {
         selectedYear.value = null;
     }
@@ -201,6 +214,24 @@ const updateCharts = () => {
                     type: 'bar',
                     data: monthlySales,
                     itemStyle: { color: '#0ea5e9' }
+                }]
+            });
+        }
+        
+        // Single Year: Monthly Sales Trend (Line)
+        if (singleYearMonthlyLineChartInstance && years.length > 0) {
+            const year = years[0].toString();
+            const monthlySales = monthlyDataByYear.get(year) || [];
+            singleYearMonthlyLineChartInstance.setOption({
+                tooltip: { trigger: 'axis' },
+                xAxis: { type: 'category', data: MONTHS },
+                yAxis: { type: 'value' },
+                series: [{
+                    name: 'Sales',
+                    type: 'line',
+                    smooth: true,
+                    data: monthlySales,
+                    itemStyle: { color: '#0284c7' }
                 }]
             });
         }
