@@ -12,7 +12,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // You can add custom color palettes, fonts, etc. here
+      colors: {
+        'dark-slate-gray': '#2F4F4F',
+        'soft-blue': '#60A5FA',
+        'cool-purple': '#8B5CF6',
+        'light-blue': '#BFDBFE',
+      },
     },
   },
   plugins: [

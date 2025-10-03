@@ -1,9 +1,8 @@
-<!-- File: frontend/client/src/components/Navbar.vue -->
 <template>
   <nav class="flex items-center justify-between px-6 py-4 bg-white shadow-sm">
     <!-- Brand -->
     <div class="flex items-center">
-      <router-link to="/" class="text-2xl font-extrabold text-[#2563eb] tracking-tight">
+      <router-link to="/" class="text-2xl font-extrabold text-dark-gray tracking-tight">
         Souraksh
       </router-link>
     </div>
@@ -40,7 +39,7 @@
 
     <!-- Mobile Menu Button -->
     <div class="md:hidden">
-      <button @click="toggleMobileMenu" class="text-gray-600 focus:outline-none">
+      <button @click="toggleMobileMenu" class="text-dark-slate-gray focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
             d="M4 6h16M4 12h16m-7 6h7" />
@@ -112,13 +111,13 @@ const isHomePage = computed(() => route.path === '/');
 
 <style scoped>
 .nav-link {
-  @apply text-gray-600 hover:text-gray-900 transition-colors;
+  @apply text-dark-slate-gray hover:text-soft-blue transition-colors;
 }
 .btn-outline {
-  @apply px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 transition;
+  @apply px-4 py-2 rounded-full border border-cool-purple text-cool-purple hover:bg-light-blue transition;
 }
 .btn-primary {
-  @apply px-4 py-2 rounded-full bg-[#2563eb] text-white font-semibold hover:bg-blue-700 transition;
+  @apply px-4 py-2 rounded-full bg-soft-blue text-white font-semibold hover:bg-blue-700 transition;
 }
 .fade-enter-active,
 .fade-leave-active {

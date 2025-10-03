@@ -31,7 +31,7 @@ let chartInstance = null;
 
 const initChart = () => {
   if (chart.value && window.echarts) {
-    chartInstance = window.echarts.init(chart.value);
+    chartInstance = window.echarts.init(chart.value, 'light', { renderer: 'svg' });
     updateChart();
   }
 };
@@ -47,7 +47,7 @@ const updateChart = () => {
       name: 'Historical Sales',
       type: 'line',
       data: historyData,
-      itemStyle: { color: '#6b7280' },
+      itemStyle: { color: '#2F4F4F' }, // dark-slate-gray
       lineStyle: { width: 2 },
     },
     {
@@ -55,7 +55,7 @@ const updateChart = () => {
       type: 'line',
       smooth: true,
       data: forecastBaseData,
-      itemStyle: { color: '#a5b4fc' },
+      itemStyle: { color: '#FF9800' }, // muted-orange
       lineStyle: { type: 'dashed' },
     },
   ];
@@ -67,12 +67,12 @@ const updateChart = () => {
       type: 'line',
       smooth: true,
       data: forecastFinalData,
-      itemStyle: { color: '#3b82f6' },
+      itemStyle: { color: '#4C8BF5' }, // soft-blue
       lineStyle: { width: 3 },
       areaStyle: {
         color: new window.echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: 'rgba(59, 130, 246, 0.3)' },
-          { offset: 1, color: 'rgba(59, 130, 246, 0)' }
+          { offset: 0, color: 'rgba(76, 139, 245, 0.3)' }, // soft-blue with opacity
+          { offset: 1, color: 'rgba(76, 139, 245, 0)' }
         ])
       }
     });
@@ -83,11 +83,20 @@ const updateChart = () => {
       trigger: 'axis',
       axisPointer: {
         type: 'cross'
+      },
+      backgroundColor: '#FFFFFF',
+      borderColor: '#E3F2FD',
+      borderWidth: 1,
+      textStyle: {
+        color: '#333333'
       }
     },
     legend: {
       data: series.map(s => s.name),
       bottom: 0,
+      textStyle: {
+        color: '#2F4F4F'
+      }
     },
     grid: {
       left: '3%',
@@ -98,11 +107,25 @@ const updateChart = () => {
     xAxis: {
       type: 'time',
       boundaryGap: false,
+      axisLine: {
+        lineStyle: {
+          color: '#d1d5db'
+        }
+      },
+      axisLabel: {
+        color: '#2F4F4F'
+      }
     },
     yAxis: {
       type: 'value',
       axisLabel: {
-        formatter: '{value}'
+        formatter: '{value}',
+        color: '#2F4F4F'
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#F2F2F2'
+        }
       }
     },
     series: series

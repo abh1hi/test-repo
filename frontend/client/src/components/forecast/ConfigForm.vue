@@ -1,14 +1,13 @@
-// File: frontend/client/src/components/forecast/ConfigForm.vue
 <template>
-  <div class="card" style="padding: 2rem">
+  <div class="bg-white rounded-lg shadow-md p-8">
     <form @submit.prevent="onFormSubmit">
       <!-- Business Context -->
-      <div style="margin-bottom: 2rem;">
-        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #0284c7"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
-            <h3 style="font-size: 1.125rem; font-weight: 500; color: #111827; margin: 0;">Business Context</h3>
+      <div class="mb-8">
+        <div class="flex items-center gap-2 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-soft-blue"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+            <h3 class="text-lg font-medium text-dark-gray m-0">Business Context</h3>
         </div>
-        <div class="form-grid">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
                 <label class="form-label">Industry *</label>
                 <select v-model="formData.industry" class="input-field" required>
@@ -35,21 +34,21 @@
               <input type="text" v-model="formData.city" class="input-field" placeholder="e.g., San Francisco" />
             </div>
         </div>
-        <div style="margin-top: 1rem; padding: 0.75rem; background-color: #f3f4f6; border-radius: 0.375rem; font-size: 0.875rem;">
-            <p style="color: #4b5563; font-weight: 500; margin: 0 0 0.5rem 0;">Supported Countries for Holiday Analysis:</p>
-            <p style="color: #6b7280; margin: 0; line-height: 1.5;">
+        <div class="mt-4 p-3 bg-light-blue rounded-md text-sm">
+            <p class="text-dark-slate-gray font-medium mb-2">Supported Countries for Holiday Analysis:</p>
+            <p class="text-dark-slate-gray leading-relaxed">
                 United States, India, Canada, United Kingdom, Australia, Germany, France, Japan, Brazil, Mexico.
             </p>
         </div>
       </div>
 
       <!-- Forecast Settings -->
-      <div style="margin-bottom: 2rem;">
-        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #0284c7"><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /></svg>
-            <h3 style="font-size: 1.125rem; font-weight: 500; color: #111827; margin: 0;">Forecast Settings</h3>
+      <div class="mb-8">
+        <div class="flex items-center gap-2 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-soft-blue"><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /></svg>
+            <h3 class="text-lg font-medium text-dark-gray m-0">Forecast Settings</h3>
         </div>
-        <div class="form-grid">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="form-label">Forecast Frequency *</label>
                 <select v-model="formData.freq" class="input-field">
@@ -63,25 +62,25 @@
                  <p class="form-hint">Number of {{ horizonUnit }} to forecast</p>
             </div>
         </div>
-        <div class="form-grid" style="margin-top: 1.5rem; grid-template-columns: 1fr 1fr;">
-            <div style="display: flex; align-items: center;">
-                <input type="checkbox" id="apply_holidays" v-model="formData.apply_holidays" style="height: 1rem; width: 1rem; margin-right: 0.5rem;">
-                <label for="apply_holidays" class="form-label" style="margin-bottom: 0;">Apply Country Holidays</label>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="flex items-center">
+                <input type="checkbox" id="apply_holidays" v-model="formData.apply_holidays" class="h-4 w-4 rounded border-gray-300 text-soft-blue focus:ring-soft-blue">
+                <label for="apply_holidays" class="ml-2 form-label mb-0">Apply Country Holidays</label>
             </div>
-            <div style="display: flex; align-items: center;">
-                <input type="checkbox" id="apply_ai_adjustment" v-model="formData.apply_ai_adjustment" style="height: 1rem; width: 1rem; margin-right: 0.5rem;">
-                <label for="apply_ai_adjustment" class="form-label" style="margin-bottom: 0;">Enable AI Adjustment</label>
+            <div class="flex items-center">
+                <input type="checkbox" id="apply_ai_adjustment" v-model="formData.apply_ai_adjustment" class="h-4 w-4 rounded border-gray-300 text-soft-blue focus:ring-soft-blue">
+                <label for="apply_ai_adjustment" class="ml-2 form-label mb-0">Enable AI Adjustment</label>
             </div>
         </div>
       </div>
       
        <!-- Data Columns -->
-      <div style="margin-bottom: 2rem;">
-           <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #0284c7"><line x1="12" x2="12" y1="20" y2="10" /><line x1="18" x2="18" y1="20" y2="4" /><line x1="6" x2="6" y1="20" y2="16" /></svg>
-                <h3 style="font-size: 1.125rem; font-weight: 500; color: #111827; margin: 0;">Data Columns</h3>
+      <div class="mb-8">
+           <div class="flex items-center gap-2 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-soft-blue"><line x1="12" x2="12" y1="20" y2="10" /><line x1="18" x2="18" y1="20" y2="4" /><line x1="6" x2="6" y1="20" y2="16" /></svg>
+                <h3 class="text-lg font-medium text-dark-gray m-0">Data Columns</h3>
             </div>
-            <div class="form-grid">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="form-label">Date Column *</label>
                     <select v-model="formData.date_col" class="input-field" required>
@@ -100,16 +99,16 @@
       </div>
 
       <!-- Submit -->
-      <div style="display: flex; justify-content: flex-end;">
-          <button type="submit" :disabled="isLoading" class="btn-primary" style="display: flex; align-items: center; gap: 0.5rem;" :style="{ opacity: isLoading ? 0.5 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' }">
-              <div v-if="isLoading" style="width: 1rem; height: 1rem; border: 2px solid white; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+      <div class="flex justify-end">
+          <button type="submit" :disabled="isLoading" class="btn-primary flex items-center gap-2" :class="{'opacity-50 cursor-not-allowed': isLoading}">
+              <div v-if="isLoading" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               <span>{{ isLoading ? 'Generating Forecast...' : 'Generate Forecast' }}</span>
           </button>
       </div>
 
       <!-- Privacy Notice -->
-      <div style="margin-top: 1.5rem; padding: 1rem; background-color: #94b7ff; border-radius: 0.375rem; text-align: center;">
-          <p style="font-size: 0.875rem; color:  #000000; margin: 0;">
+      <div class="mt-6 p-4 bg-light-blue rounded-md text-center">
+          <p class="text-sm text-dark-slate-gray">
               <strong>Privacy Notice:</strong> Your sales data is processed only on our server for modeling and never sent to external AI models. Only anonymous context (industry/location/horizon) is sent to AI models for macro adjustment.
           </p>
       </div>
@@ -190,33 +189,45 @@ const onFormSubmit = () => {
 </script>
 
 <style scoped>
-.progress-bar-indeterminate {
-  height: 100%;
-  background-color: #3b82f6;
-  animation: progress-indeterminate 1.5s ease-in-out infinite;
-}
-
-@keyframes progress-indeterminate {
-  0% {
-    transform: translateX(-100%);
-    width: 40%;
-  }
-  100% {
-    transform: translateX(250%);
-    width: 40%;
-  }
-}
-
 .form-label {
     display: block;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #374151;
+    color: #2F4F4F; /* dark-slate-gray */
     margin-bottom: 0.5rem;
 }
 .form-hint {
     margin-top: 0.25rem;
     font-size: 0.75rem;
     color: #6b7280;
+}
+.input-field {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+    background-color: #F2F2F2; /* light-gray */
+    color: #333333; /* dark-gray */
+    transition: border-color 0.2s;
+}
+.input-field:focus {
+    outline: none;
+    border-color: #4C8BF5; /* soft-blue */
+    box-shadow: 0 0 0 2px rgba(76, 139, 245, 0.2);
+}
+.btn-primary {
+  padding: 0.75rem 1.25rem;
+  background-color: #4C8BF5; /* soft-blue */
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-primary:hover {
+  background-color: #3a7bd5;
 }
 </style>

@@ -1,58 +1,39 @@
-<!-- File: frontend/client/src/components/forecast/FinancialProjection.vue -->
 <template>
-  <div v-if="!forecastData || forecastData.length === 0" style="background-color: white; border-radius: 0.5rem; padding: 2rem; text-align: center; color: #6b7280;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 1rem auto;"><line x1="12" x2="12" y1="2" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+  <div v-if="!forecastData || forecastData.length === 0" class="bg-white rounded-lg shadow-md p-8 text-center text-dark-slate-gray">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 text-muted-orange"><line x1="12" x2="12" y1="2" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
     <p>No forecast data available for financial projection</p>
   </div>
 
-  <div v-else style="background-color: white; border-radius: 0.5rem; padding: 2rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">
+  <div v-else class="bg-white rounded-lg shadow-md p-6">
     <!-- Header -->
-    <div style="margin-bottom: 2rem;">
-      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #0284c7"><line x1="12" x2="12" y1="2" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
-        <h3 style="color: #111827; font-size: 1.5rem; margin: 0;">{{ title }}</h3>
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-soft-blue"><line x1="12" x2="12" y1="2" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+        <h3 class="text-xl font-bold text-dark-gray m-0">{{ title }}</h3>
       </div>
-      <p style="color: #6b7280; margin: 0;">Calculate revenue and profitability based on forecast units</p>
+      <p class="text-dark-slate-gray text-sm">Calculate revenue and profitability based on forecast units</p>
     </div>
 
     <!-- Input Form -->
-    <div style="background-color: #f9fafb; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid #e5e7eb;">
-      <h4 style="color: #111827; font-size: 1.125rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+    <div class="bg-light-gray rounded-lg p-6 mb-8 border border-gray-200">
+      <h4 class="text-lg font-medium text-dark-gray mb-4 flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" /><line x1="8" x2="16" y1="6" y2="6" /><line x1="16" x2="16" y1="14" y2="18" /><line x1="8" x2="8" y1="10" y2="18" /><line x1="8" x2="16" y1="10" y2="10" /></svg>
         Financial Parameters
       </h4>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="form-label">Average Selling Price per Unit ({{ currency.symbol }})</label>
-          <input
-            type="number"
-            :value="inputs.avgSellingPrice"
-            @input="handleInputChange('avgSellingPrice', $event.target.value)"
-            placeholder="e.g., 50.00"
-            min="0"
-            step="0.01"
-            class="input-field"
-            :style="{ borderColor: errors.avgSellingPrice !== undefined ? '#dc2626' : '#d1d5db' }"
-          />
+          <input type="number" :value="inputs.avgSellingPrice" @input="handleInputChange('avgSellingPrice', $event.target.value)" placeholder="e.g., 50.00" min="0" step="0.01" class="input-field" :class="{'border-red-500': errors.avgSellingPrice !== undefined}" />
           <p v-if="errors.avgSellingPrice !== undefined" class="error-text">Please enter a valid selling price greater than {{ currency.symbol }}0</p>
         </div>
         <div>
           <label class="form-label">Average Cost of Goods per Unit ({{ currency.symbol }})</label>
-          <input
-            type="number"
-            :value="inputs.avgCostOfGoods"
-            @input="handleInputChange('avgCostOfGoods', $event.target.value)"
-            placeholder="e.g., 30.00"
-            min="0"
-            step="0.01"
-            class="input-field"
-            :style="{ borderColor: errors.avgCostOfGoods !== undefined ? '#dc2626' : '#d1d5db' }"
-          />
+          <input type="number" :value="inputs.avgCostOfGoods" @input="handleInputChange('avgCostOfGoods', $event.target.value)" placeholder="e.g., 30.00" min="0" step="0.01" class="input-field" :class="{'border-red-500': errors.avgCostOfGoods !== undefined}" />
           <p v-if="errors.avgCostOfGoods !== undefined" class="error-text">Cost must be less than selling price and ≥ {{ currency.symbol }}0</p>
         </div>
       </div>
-      <div v-if="isInputValid" style="margin-top: 1rem; padding: 0.75rem; background-color: #dcfce7; border-radius: 0.375rem; border: 1px solid #bbf7d0;">
-        <p style="font-size: 0.875rem; color: #16a34a; margin: 0;">
+      <div v-if="isInputValid" class="mt-4 p-3 bg-green-100 rounded-md border border-vibrant-green">
+        <p class="text-sm text-green-800">
           <strong>Gross Margin:</strong> {{ ((inputs.avgSellingPrice - inputs.avgCostOfGoods) / inputs.avgSellingPrice * 100).toFixed(2) }}%
           ({{ currency.symbol }}{{ (inputs.avgSellingPrice - inputs.avgCostOfGoods).toFixed(2) }} profit per unit)
         </p>
@@ -62,27 +43,27 @@
     <!-- Results -->
     <div v-if="financialMetrics.length > 0">
       <!-- Summary Cards -->
-      <div v-if="isInputValid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-        <div class="summary-card" style="background-color: #eff6ff; border-color: #bfdbfe;">
-          <h4 class="summary-title" style="color: #1e40af;">Total Revenue</h4>
-          <p class="summary-value" style="color: #1e40af;">{{ currency.symbol }}{{ summaryMetrics.totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}</p>
+      <div v-if="isInputValid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="summary-card bg-light-blue border-soft-blue">
+          <h4 class="summary-title text-soft-blue">Total Revenue</h4>
+          <p class="summary-value text-soft-blue">{{ currency.symbol }}{{ summaryMetrics.totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}</p>
         </div>
-        <div class="summary-card" style="background-color: #f0fdf4; border-color: #bbf7d0;">
-          <h4 class="summary-title" style="color: #15803d;">Total Gross Profit</h4>
-          <p class="summary-value" style="color: #15803d;">{{ currency.symbol }}{{ summaryMetrics.totalProfit.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}</p>
+        <div class="summary-card bg-green-100 border-vibrant-green">
+          <h4 class="summary-title text-vibrant-green">Total Gross Profit</h4>
+          <p class="summary-value text-vibrant-green">{{ currency.symbol }}{{ summaryMetrics.totalProfit.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}</p>
         </div>
-        <div class="summary-card" style="background-color: #fefce8; border-color: #fde047;">
-          <h4 class="summary-title" style="color: #a16207;">Total Units</h4>
-          <p class="summary-value" style="color: #a16207;">{{ summaryMetrics.totalUnits.toLocaleString() }}</p>
+        <div class="summary-card bg-orange-100 border-muted-orange">
+          <h4 class="summary-title text-muted-orange">Total Units</h4>
+          <p class="summary-value text-muted-orange">{{ summaryMetrics.totalUnits.toLocaleString() }}</p>
         </div>
-        <div class="summary-card" style="background-color: #f5f3ff; border-color: #c4b5fd;">
-          <h4 class="summary-title" style="color: #7c3aed;">Average Margin</h4>
-          <p class="summary-value" style="color: #7c3aed;">{{ summaryMetrics.avgMargin.toFixed(1) }}%</p>
+        <div class="summary-card bg-purple-100 border-cool-purple">
+          <h4 class="summary-title text-cool-purple">Average Margin</h4>
+          <p class="summary-value text-cool-purple">{{ summaryMetrics.avgMargin.toFixed(1) }}%</p>
         </div>
       </div>
 
       <!-- Charts -->
-      <div style="display: grid; gap: 2rem; margin-bottom: 2rem;">
+      <div class="grid gap-8 mb-8">
         <div>
           <h4 class="section-title">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></svg>
@@ -93,33 +74,33 @@
 
         <!-- Data Table Preview -->
         <div v-if="isInputValid">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <h4 class="section-title" style="margin: 0;">Projection Preview</h4>
-            <button @click="downloadFinancialProjection" class="download-btn">
+          <div class="flex justify-between items-center mb-4">
+            <h4 class="section-title m-0">Projection Preview</h4>
+            <button @click="downloadFinancialProjection" class="btn-primary">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
-              Export CSV
+              <span>Export CSV</span>
             </button>
           </div>
-          <div style="background-color: #f9fafb; border-radius: 0.5rem; padding: 1rem; max-height: 250px; overflow-y: auto;">
-            <table style="width: 100%; font-size: 0.75rem;">
-              <thead>
-                <tr style="background-color: #f3f4f6;">
+          <div class="bg-light-gray rounded-lg p-4 max-h-64 overflow-y-auto">
+            <table class="min-w-full text-xs">
+              <thead class="bg-gray-200">
+                <tr>
                   <th class="table-header">Period</th>
-                  <th class="table-header" style="text-align: right;">Units</th>
-                  <th class="table-header" style="text-align: right;">Revenue</th>
-                  <th class="table-header" style="text-align: right;">Profit</th>
+                  <th class="table-header text-right">Units</th>
+                  <th class="table-header text-right">Revenue</th>
+                  <th class="table-header text-right">Profit</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr v-for="(item, idx) in financialMetrics.slice(0, 8)" :key="idx" :style="{ backgroundColor: idx % 2 === 0 ? 'white' : '#f9fafb' }">
+              <tbody class="divide-y divide-gray-200">
+                <tr v-for="(item, idx) in financialMetrics.slice(0, 8)" :key="idx" class="hover:bg-gray-200">
                   <td class="table-cell">{{ item.period }}</td>
-                  <td class="table-cell" style="text-align: right;">{{ item.salesUnits.toLocaleString() }}</td>
-                  <td class="table-cell" style="text-align: right;">{{ currency.symbol }}{{ item.grossRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}</td>
-                  <td class="table-cell" style="text-align: right; color: #16a34a; font-weight: 500;">{{ currency.symbol }}{{ item.grossProfit.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}</td>
+                  <td class="table-cell text-right">{{ item.salesUnits.toLocaleString() }}</td>
+                  <td class="table-cell text-right">{{ currency.symbol }}{{ item.grossRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}</td>
+                  <td class="table-cell text-right text-vibrant-green font-medium">{{ currency.symbol }}{{ item.grossProfit.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}</td>
                 </tr>
               </tbody>
             </table>
-            <p v-if="financialMetrics.length > 8" style="font-size: 0.75rem; color: #6b7280; text-align: center; margin: 0.5rem 0 0 0;">
+            <p v-if="financialMetrics.length > 8" class="text-xs text-dark-slate-gray text-center mt-2">
               Showing first 8 of {{ financialMetrics.length }} periods
             </p>
           </div>
@@ -264,7 +245,7 @@ const updateChart = () => {
   }
 
   if ((!chartInstance || chartInstance.isDisposed()) && window.echarts) {
-    chartInstance = window.echarts.init(financialChart.value);
+    chartInstance = window.echarts.init(financialChart.value, 'light', { renderer: 'svg' });
   }
 
   if (!chartInstance) return;
@@ -282,40 +263,46 @@ const updateChart = () => {
           tooltip += `${param.marker} ${param.seriesName}: ${currency.value.symbol}${(param.value || 0).toLocaleString(undefined, {maximumFractionDigits: 0})}<br/>`;
         });
         return tooltip;
-      }
+      },
+      backgroundColor: '#FFFFFF',
+      borderColor: '#E3F2FD',
+      borderWidth: 1,
+      textStyle: { color: '#333333' }
     },
-    legend: { data: ['Gross Revenue', 'Gross Profit'], bottom: 0 },
+    legend: { data: ['Gross Revenue', 'Gross Profit'], bottom: 0, textStyle: { color: '#2F4F4F' } },
     grid: { top: '10%', left: '3%', right: '4%', bottom: '10%', containLabel: true },
     xAxis: { 
       type: 'category', 
-      data: showData ? metrics.map(d => d.period) : [] 
+      data: showData ? metrics.map(d => d.period) : [],
+      axisLine: { lineStyle: { color: '#d1d5db' } },
+      axisLabel: { color: '#2F4F4F' }
     },
     yAxis: { 
       type: 'value', 
       axisLabel: { 
-        formatter: (value) => `${currency.value.symbol}${(value / 1000).toFixed(0)}K`
-      } 
+        formatter: (value) => `${currency.value.symbol}${(value / 1000).toFixed(0)}K`,
+        color: '#2F4F4F'
+      },
+      splitLine: { lineStyle: { color: '#F2F2F2' } }
     },
     series: [
       { 
         name: 'Gross Revenue', 
         type: 'bar', 
         data: showData ? metrics.map(d => d.grossRevenue) : [], 
-        itemStyle: { color: '#0284c7', borderRadius: [4, 4, 0, 0] } 
+        itemStyle: { color: '#4C8BF5', borderRadius: [4, 4, 0, 0] } 
       },
       { 
         name: 'Gross Profit', 
         type: 'bar', 
         data: showData ? metrics.map(d => d.grossProfit) : [], 
-        itemStyle: { color: '#16a34a', borderRadius: [4, 4, 0, 0] } 
+        itemStyle: { color: '#4CAF50', borderRadius: [4, 4, 0, 0] } 
       }
     ]
   }, true);
 };
 
 onMounted(() => {
-  // We still call updateChart on mount to draw the initial state.
-  // The new logic inside updateChart will handle the initialization.
   nextTick(updateChart);
 });
 
@@ -337,7 +324,7 @@ watch(() => props.forecastData, () => {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: #2F4F4F;
   margin-bottom: 0.5rem;
 }
 .input-field {
@@ -346,16 +333,24 @@ watch(() => props.forecastData, () => {
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   font-size: 0.875rem;
+  background-color: #F2F2F2;
+  color: #333333;
+  transition: border-color 0.2s;
+}
+.input-field:focus {
+  outline: none;
+  border-color: #4C8BF5;
+  box-shadow: 0 0 0 2px rgba(76, 139, 245, 0.2);
 }
 .error-text {
   font-size: 0.75rem;
   color: #dc2626;
-  margin: 0.25rem 0 0 0;
+  margin-top: 0.25rem;
 }
 .summary-card {
   padding: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid;
+  border-width: 1px;
 }
 .summary-title {
   font-size: 0.875rem;
@@ -368,35 +363,37 @@ watch(() => props.forecastData, () => {
   margin: 0;
 }
 .section-title {
-  color: #111827;
+  color: #333333;
   font-size: 1.125rem;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.download-btn {
+.btn-primary {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: #0284c7;
+  background-color: #4C8BF5;
   color: white;
   border: none;
   border-radius: 0.375rem;
   font-size: 0.875rem;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-primary:hover {
+  background-color: #3a7bd5;
 }
 .table-header {
   padding: 0.5rem;
   text-align: left;
   font-weight: 500;
-  color: #374151;
+  color: #2F4F4F;
 }
 .table-cell {
   padding: 0.5rem;
-  color: #6b7280;
+  color: #333333;
 }
 </style>
-
-
